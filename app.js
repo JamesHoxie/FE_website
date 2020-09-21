@@ -2,13 +2,16 @@
 const express = require('express');
 
 // express app, instance of express app
-const app = express();
+const app = express();2
 
 // register view engine
 app.set('view engine', 'ejs');
 
 // listen for requests on localhost 
 app.listen(3000);
+
+// set public directory to serve static files from (css stylesheet currently)
+app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req, res) => {
     const characters = [

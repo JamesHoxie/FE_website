@@ -15,19 +15,19 @@
         <p>This is the second content block</p>
     </div>
 
-    <div class="blogs content">
-    <h2>All Character Profiles</h2>
-    
-    <% if (characters.length > 0) { %>
-        <% characters.forEach((charProfile) => { %>
-            <h3 class="name"><%= charProfile.name %></h3>
-            <p class="quote"><%= charProfile.quote %></p>
-            <p class="bio"><%= charProfile.bio %></p>
-        <% }); %>       
-    <%} else { %>
-        <p>There are no profiles to display...</p>
-    <% } %>
-</div>
+    <div class="character-profiles content">
+        <h2>All Character Profiles</h2>
+        
+        <% if (characters.length > 0) { %>
+            <% characters.forEach((charProfile) => { %>
+                <h3 class="name"><%= charProfile.name %></h3>
+                <p class="quote"><%= charProfile.quote %></p>
+                <p class="bio"><%= charProfile.bio %></p>
+            <% }); %>       
+        <%} else { %>
+            <p>There are no profiles to display...</p>
+        <% } %>
+    </div>
   
   <%- include('./partials/footer.ejs') %>
 
