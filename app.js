@@ -2,7 +2,7 @@
 const express = require('express');
 
 // express app, instance of express app
-const app = express();2
+const app = express();
 
 // register view engine
 app.set('view engine', 'ejs');
@@ -10,7 +10,7 @@ app.set('view engine', 'ejs');
 // listen for requests on localhost 
 app.listen(3000);
 
-// set public directory to serve static files from (css stylesheet currently)
+// set public directory to serve static files from (css stylesheet currently, place images in public as well)
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req, res) => {
@@ -39,5 +39,5 @@ app.get('/create', (req, res) => {
 // 404 page, using middleware, (.use() -> use this function for every incoming request, dont try to match a route)
 // if nothing else matches a route above, it will send a 404
 app.use((req, res) => {
-    res.status(404).sendFile('./views/404.html', {root: __dirname});
+    res.status(404).render('404', {title: 'page not found'});
 })
