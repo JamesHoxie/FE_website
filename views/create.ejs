@@ -8,13 +8,13 @@
     <%- include('./partials/nav.ejs') %>
 
     <div class="create-character-profile content">
-      <form>
+      <form action="/characters" method="POST">
           <label for="name">Character Name</label>
-          <input type="text" id="name" required>
+          <input type="text" id="name" name="name" required>
           <label for="quote">Character Quote</label>
-          <input type="text" id="quote">
+          <input type="text" id="quote" name="quote">
           <label for="bio">Character Bio</label>
-          <textarea id="bio"></textarea>
+          <textarea id="bio" name="bio"></textarea>
           <button>Submit</button>
       </form>
     </div>

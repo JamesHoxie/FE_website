@@ -20,9 +20,11 @@
         
         <% if (characters.length > 0) { %>
             <% characters.forEach((charProfile) => { %>
-                <h3 class="name"><%= charProfile.name %></h3>
-                <p class="quote"><%= charProfile.quote %></p>
-                <p class="bio"><%= charProfile.bio %></p>
+                <a class="single" href="/characters/<%= charProfile.id %>">
+                    <h3 class="name"><%= charProfile.name %></h3>
+                    <p class="quote"><%= charProfile.quote %></p>
+                    <p class="bio"><%= charProfile.bio %></p>
+                </a>
             <% }); %>       
         <%} else { %>
             <p>There are no profiles to display...</p>

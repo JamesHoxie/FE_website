@@ -110,12 +110,6 @@ app.get('/', (req, res) => {
             console.log(err);
         })
 
-    // const characters = [
-    //     {name: 'Joe', quote: 'I\'m Joe!', bio: 'He is, indeed, Joe'},
-    //     {name: 'Patty', quote: 'I will never leave Bumble!', bio: 'She\'s a cow, wearing a meat dress, named patty. Nothing else needs to be said.'},
-    //     {name: 'Panda', quote: 'I will complete this project!', bio: 'He\'s the totally rad guy making this website.'} 
-    // ];
-
     // // express automatically checks views folder, does not need path name, does not need to know where path is relative to 
     // // compare to : res.sendFile('./views/index.html', {root: __dirname});
     // // second param is the object to be passed to the corresponding ejs file that will be rendered,
@@ -128,8 +122,43 @@ app.get('/about', (req, res) => {
     res.render('about', {title: 'about page'});
 });
 
+app.get('/characters/:id', (req, res) => {
+    const id = req.params.id;
+    Character.findById(id)
+        .then(result => {
+            res.render('details', {character: result, title: 'character details'});
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+})
+
+app.delete('/characters/:id', (req, res) => {
+    const id = req.params.id;
+
+    Character.findByIdAndDelete(id)
+        .then((result) => {
+            res.json({redirect: '/characters'});
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+});
+
 app.get('/characters', (req, res) => {
     res.redirect('/');
+});
+
+app.post('/characters', (req, res) => {
+    const character = new Character(req.body);
+
+    character.save()
+        .then((result) => {
+            res.redirect('/characters');
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 });
 
 app.get('/create', (req, res) => {
