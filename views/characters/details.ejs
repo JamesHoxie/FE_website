@@ -1,8 +1,8 @@
 <html lang="en">
-<%- include("./partials/head.ejs") %>
+<%- include("../partials/head.ejs") %>
 
 <body>
-    <%- include("./partials/nav.ejs") %>
+    <%- include("../partials/nav.ejs") %>
 
     <div class="details content">
         <h2><%= character.name %></h2>
@@ -13,7 +13,7 @@
         <a class="delete" data-doc="<%= character.id %>">delete</a>
     </div>
 
-    <%- include("./partials/footer.ejs") %>
+    <%- include("../partials/footer.ejs") %>
 
     <script>
         const trashcan = document.querySelector('a.delete');
