@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const characterRoutes = require('./routes/characterRoutes');
 const Character = require('./models/character');
 
 // express app, instance of express app
@@ -52,52 +53,8 @@ app.use(morgan('dev'));
 
 // ************************ SERVER END POINTS START HERE  ************************
 
-
-// start mongoose and mongo routes
-
-// POST
-app.get('/add-character', (req, res) => {
-
-    // create new instance of Character model to save to database
-    const character = new Character({
-        name: 'new character',
-        quote: 'new quote',
-        bio: 'new bio'
-    });
-
-    // save new character to FE-Database on mongoDB cloud
-    character.save()
-        .then((result) => {
-            res.send(result);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-});
-
-// GET (ALL)
-app.get('/all-characters', (req, res) => {
-    Character.find()
-        .then((result) => {
-            res.send(result);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-});
-
-// GET (SINGLE)
-app.get('/search-character', (req, res) => {
-    Character.findById('5f6a896a9287038c50a4b6a3')
-        .then((result) => {
-            res.send(result);
-        })
-        .catch((err) => {
-            console.log(err);
-        })
-});
-
-// end mongo and mongoose routes
+// character routes 
+app.use('/characters', characterRoutes);
 
 app.get('/', (req, res) => {
 
@@ -120,45 +77,6 @@ app.get('/', (req, res) => {
 
 app.get('/about', (req, res) => {
     res.render('about', {title: 'about page'});
-});
-
-app.get('/characters/:id', (req, res) => {
-    const id = req.params.id;
-    Character.findById(id)
-        .then(result => {
-            res.render('details', {character: result, title: 'character details'});
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-})
-
-app.delete('/characters/:id', (req, res) => {
-    const id = req.params.id;
-
-    Character.findByIdAndDelete(id)
-        .then((result) => {
-            res.json({redirect: '/characters'});
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-});
-
-app.get('/characters', (req, res) => {
-    res.redirect('/');
-});
-
-app.post('/characters', (req, res) => {
-    const character = new Character(req.body);
-
-    character.save()
-        .then((result) => {
-            res.redirect('/characters');
-        })
-        .catch((err) => {
-            console.log(err);
-        });
 });
 
 app.get('/create', (req, res) => {
