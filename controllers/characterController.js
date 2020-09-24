@@ -20,7 +20,7 @@ const character_details = function(req, res) {
             res.render('characters/details', {character: result, title: 'character details'});
         })
         .catch((err) => {
-            console.log(err);
+            res.status(404).render('404', {title: 'Character not found'});
         });
 }
 
