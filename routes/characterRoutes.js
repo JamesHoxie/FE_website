@@ -1,49 +1,19 @@
 const express = require('express');
 const router = express.Router();
+const characterController = require('../controllers/characterController');
 const Character = require('../models/character');
 
 // FYI: all routes here are prepended by '/characters', so get('/') in this file is actually get('/characters/') overall
 
+router.post('/', characterController.character_create_post);
 
-router.get('/', (req, res) => {
-    res.redirect('/');
-});
+router.get('/create', characterController.character_create_get);
 
-router.get('/:id', (req, res) => {
-    const id = req.params.id;
-    Character.findById(id)
-        .then(result => {
-            res.render('details', {character: result, title: 'character details'});
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-});
+router.get('/:id', characterController.character_details);
 
-router.post('/', (req, res) => {
-    const character = new Character(req.body);
+router.get('/', characterController.character_index);
 
-    character.save()
-        .then((result) => {
-            res.redirect('/characters');
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-});
-
-router.delete('/:id', (req, res) => {
-    const id = req.params.id;
-
-    Character.findByIdAndDelete(id)
-        .then((result) => {
-            res.json({redirect: '/characters'});
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-});
-
+router.delete('/:id', characterController.character_delete);
 
 
 module.exports = router;

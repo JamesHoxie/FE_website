@@ -2,7 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const characterRoutes = require('./routes/characterRoutes');
-const Character = require('./models/character');
+const characterController = require('./controllers/characterController');
 
 // express app, instance of express app
 const app = express();
@@ -57,30 +57,11 @@ app.use(morgan('dev'));
 app.use('/characters', characterRoutes);
 
 app.get('/', (req, res) => {
-
-    // get all characters from DB, sorts in descending order from time of creation (new characters show first)
-    Character.find().sort({createdAt: -1})
-        .then((result) => {
-            res.render('index', {title: 'index page', characters: result});
-        })
-        .catch((err) => {
-            console.log(err);
-        })
-
-    // // express automatically checks views folder, does not need path name, does not need to know where path is relative to 
-    // // compare to : res.sendFile('./views/index.html', {root: __dirname});
-    // // second param is the object to be passed to the corresponding ejs file that will be rendered,
-    // // use this param to pass data that will be dynamically rendered on the page
-    
-    // res.render('index', {title: 'index page', characters: characters});
-});
+    res.redirect('/characters');
+})
 
 app.get('/about', (req, res) => {
     res.render('about', {title: 'about page'});
-});
-
-app.get('/create', (req, res) => {
-    res.render('create', {title: 'create page'});
 });
 
 // 404 page, using middleware, (.use() -> use this function for every incoming request, dont try to match a route)
