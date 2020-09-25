@@ -18,11 +18,26 @@
         </a>
     </div>
 
+    <div class="update-character-profile content">
+        <label for="name">Character Name</label>
+        <input type="text" id="name" name="name" required>
+        <label for="quote">Character Quote</label>
+        <input type="text" id="quote" name="quote">
+        <label for="bio">Character Bio</label>
+        <textarea id="bio" name="bio"></textarea>
+        <button id="update-button">Update</button>
+    </div>
+
     <%- include("../partials/footer.ejs") %>
 
     <script>
         const trashcan = document.querySelector('a.delete');
         const pencil = document.querySelector('a.update');
+        const updateButton = document.querySelector('#update-button');
+        const updateInputBoxes = document.querySelector('div.update-character-profile');
+
+        // default to not displaying input boxes for profile updates
+        updateInputBoxes.style.display = 'none';
 
         trashcan.addEventListener('click', (event) => {
             const endpoint = `/characters/${trashcan.dataset.doc}`;
@@ -36,11 +51,37 @@
                 console.log(err);
             });
         });
-    
-    
+
+
+        // hide/show text inputs to update a character profile
         pencil.addEventListener('click', (event) => {
+            console.log(updateInputBoxes.style.display);
+
+            if (updateInputBoxes.style.display === 'none') {
+                updateInputBoxes.style.display = 'inline';
+            } else {
+                updateInputBoxes.style.display = 'none';
+            }
+        });
+    
+        updateButton.addEventListener('click', (event) => {
             const endpoint = `/characters/${pencil.dataset.doc}`;
-            const data = {name: 'updated', quote: 'never thought you would update me did ya?', bio: 'updated bio'};
+            const name = document.querySelector('#name').value;
+            const quote = document.querySelector('#quote').value;
+            const bio = document.querySelector('#bio').value;
+            const data = {};
+
+            if (name) {
+                data.name = name;
+            }
+
+            if (quote) {
+                data.quote = quote;
+            }
+
+            if (bio) {
+                data.bio = bio;
+            }
 
             fetch(endpoint, {
                 method: 'PUT',
@@ -53,6 +94,7 @@
                 console.log(err);
             });
         });
+
     </script>
 </body>
 </html>

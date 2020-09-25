@@ -102,6 +102,19 @@ h3 {
     box-shadow: 1px 2px 3px rgba(0, 0, 0, .2);
 }
 
+.update-character-profile {
+    position: absolute;
+    top: 200;
+    right: 100;
+    padding: 10px 10px 10px 10px;
+    outline: 1px solid black;
+}
+
+.update-character-profile input,
+.update-character-profile textarea{
+    display: block;
+}
+
 .create-character-profile form {
     max-width: 400px;
     margin: 0 auto;
