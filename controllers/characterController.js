@@ -52,10 +52,25 @@ const character_delete = function(req, res) {
         });
 }
 
+const character_put = function(req, res) {
+    const id = req.params.id;
+    const data = req.body;
+    console.log(req.body);
+
+    Character.findByIdAndUpdate(id, data)
+        .then((result) => {
+            res.json({redirect: `/characters/${id}`});
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+}
+
 module.exports = {
     character_index,
     character_details,
     character_create_get,
     character_create_post,
-    character_delete
+    character_delete,
+    character_put
 }

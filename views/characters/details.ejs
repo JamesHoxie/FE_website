@@ -13,18 +13,39 @@
         <a class="delete" data-doc="<%= character.id %>">
             <img src='/trashcan.svg' alt='delete'>
         </a>
+        <a class="update" data-doc="<%= character.id %>">
+            <img src='/pencil.png' alt='update'>
+        </a>
     </div>
 
     <%- include("../partials/footer.ejs") %>
 
     <script>
         const trashcan = document.querySelector('a.delete');
+        const pencil = document.querySelector('a.update');
 
         trashcan.addEventListener('click', (event) => {
             const endpoint = `/characters/${trashcan.dataset.doc}`;
 
             fetch(endpoint, {
                 method: 'DELETE'
+            })
+            .then(response => response.json())
+            .then(data => window.location.href = data.redirect)
+            .catch((err) => {
+                console.log(err);
+            });
+        });
+    
+    
+        pencil.addEventListener('click', (event) => {
+            const endpoint = `/characters/${pencil.dataset.doc}`;
+            const data = {name: 'updated', quote: 'never thought you would update me did ya?', bio: 'updated bio'};
+
+            fetch(endpoint, {
+                method: 'PUT',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
             })
             .then(response => response.json())
             .then(data => window.location.href = data.redirect)
