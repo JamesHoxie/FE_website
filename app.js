@@ -2,7 +2,6 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const characterRoutes = require('./routes/characterRoutes');
-const characterController = require('./controllers/characterController');
 
 // express app, instance of express app
 const app = express();
@@ -61,7 +60,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/about', (req, res) => {
-    res.render('about', {title: 'about page'});
+    res.status(200).render('about', {title: 'about page'});
 });
 
 // 404 page, using middleware, (.use() -> use this function for every incoming request, dont try to match a route)
