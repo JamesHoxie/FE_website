@@ -1,4 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+html {
+    background: url("../images/background.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
 body {
     max-width: 1200;
     margin: 20px auto;
@@ -6,41 +15,66 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
-p, h1, h2, h3, a, ul {
-    margin: 0;
-    padding: 0;
-    text-decoration: none;
-    color: #222;
+/* Homepage styles */ 
+.home-page {
+    background-color: steelblue;
+    color: purple;
+    text-align: center;
 }
+
+.main-content {
+    background-color: goldenrod;
+    text-align: center;
+}
+
+.main-content h2 {
+    color: red;
+}
+
+img[name="three-houses-cover"] {
+    width: 25%;
+    height: 25%;
+}
+
+/* nav bar styles */
 
 nav {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 60px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #ddd;
+    justify-content: center;
     text-transform: uppercase;
+    background-color: red;
 }
 
 nav ul {
     display: flex;
-    justify-content: space-between;
     align-items: flex-end;
 }
 
 nav li {
+    text-align: center; /* center text within individual buttons on nav bar */
     list-style-type: none;
     margin-left: 20px;
+    border: 2px solid white;
+    background-color: black;
+    width: 15em;
+    height: auto;
 }
 
-nav h1 {
-    font-size: 3em;
+nav a {
+    color: silver;
+    font-weight: bold;
+    text-decoration: none; /* remove underlines from links */
 }
 
-nav p, nav a {
-    color: #777;
-    font-weight: 300;
+nav li:hover {
+    background-color: rgb(100, 100, 100);
 }
+
+/* nav a:hover {
+    color: black;
+} */
+
+/*
 
 footer {
     color: #777;
@@ -145,4 +179,7 @@ textarea {
     border: 0;
     font-size: 1.2em;
     cursor: pointer;
-}
+} */
+
+
+

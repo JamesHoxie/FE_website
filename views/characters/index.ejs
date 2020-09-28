@@ -14,7 +14,7 @@
             <% characters.forEach((charProfile) => { %>
                 <a class="single" href="/characters/<%= charProfile.id %>">
                     <h3 class="name"><%= charProfile.name %></h3>
-                    <p class="quote"><%= charProfile.quote %></p>
+                    <p class="quote">"<%= charProfile.quote %>"</p>
                     <p class="bio"><%= charProfile.bio %></p>
                 </a>
             <% }); %>       
