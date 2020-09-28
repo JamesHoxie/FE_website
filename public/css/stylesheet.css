@@ -1,29 +1,54 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Italianno&display=swap');
 
 html {
-    background: url("../images/background.jpg") no-repeat center center fixed;
+    background: url("../images/background.jpg") no-repeat center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
 }
 
+#page-title {
+    margin-bottom: -105px;
+    padding: 25px 25px 25px 25px;
+}
+
+div[class="body-container"] {
+    /* background-color: indigo; */
+    margin: 0px 200px 200px 200px;
+}
+
+div[class="header-container"] {
+    /* background-color: hotpink; */
+    padding: 50px 50px 50px 50px;
+    /* margin-bottom: 200px; */
+    opacity: 0.85;
+}
+
+div[class="parchment-container"] {
+    padding: 25px 25px 25px 25px;
+    background-color: goldenrod;
+    opacity: 0.85;
+    margin-top: -60px;
+}
+
 body {
     max-width: 1200;
-    margin: 20px auto;
-    padding: 0 20px;
     font-family: 'Montserrat', sans-serif;
+    justify-content: center;
 }
 
 /* Homepage styles */ 
 .home-page {
     background-color: steelblue;
-    color: purple;
+    font-size: 5em;
+    font-family: 'Italianno', cursive;
+    color: rgb(212,175,55); /* Metallic Gold*/
     text-align: center;
 }
 
 .main-content {
-    background-color: goldenrod;
     text-align: center;
 }
 
@@ -42,7 +67,8 @@ nav {
     display: flex;
     justify-content: center;
     text-transform: uppercase;
-    background-color: red;
+    margin-top: 55px;
+    /* background-color: red; */
 }
 
 nav ul {
@@ -53,21 +79,21 @@ nav ul {
 nav li {
     text-align: center; /* center text within individual buttons on nav bar */
     list-style-type: none;
-    margin-left: 20px;
-    border: 2px solid white;
-    background-color: black;
-    width: 15em;
     height: auto;
 }
 
 nav a {
     color: silver;
-    font-weight: bold;
+    font-weight: 700;
     text-decoration: none; /* remove underlines from links */
+    border: 2px solid white;
+    background-color: black;
+    padding: 5px 15px 5px 15px;
 }
 
-nav li:hover {
-    background-color: rgb(100, 100, 100);
+nav a:hover {
+    background-color: rgb(95, 95, 95);
+    color: goldenrod;
 }
 
 /* nav a:hover {
