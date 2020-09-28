@@ -9,9 +9,22 @@ html {
     background-size: cover;
 }
 
+body {
+    max-width: 1200;
+    font-family: 'Montserrat', sans-serif;
+    justify-content: center;
+}
+
+/* begin Homepage styles */ 
+
 #page-title {
     margin-bottom: -105px;
     padding: 25px 25px 25px 25px;
+    background-color: rgb(70, 130, 180, 0.85); /* Steelblue */
+    font-size: 5em;
+    font-family: 'Italianno', cursive;
+    color: rgb(212,175,55, 0.85); /* Metallic Gold*/
+    text-align: center;
 }
 
 div[class="body-container"] {
@@ -23,36 +36,24 @@ div[class="header-container"] {
     /* background-color: hotpink; */
     padding: 50px 50px 50px 50px;
     /* margin-bottom: 200px; */
-    opacity: 0.85;
 }
 
 div[class="parchment-container"] {
     padding: 25px 25px 25px 25px;
-    background-color: goldenrod;
-    opacity: 0.85;
+    background-color: rgb(218, 165, 32, 0.85); /* goldenrod */
     margin-top: -60px;
 }
 
-body {
-    max-width: 1200;
-    font-family: 'Montserrat', sans-serif;
-    justify-content: center;
-}
-
-/* Homepage styles */ 
-.home-page {
-    background-color: steelblue;
-    font-size: 5em;
-    font-family: 'Italianno', cursive;
-    color: rgb(212,175,55); /* Metallic Gold*/
-    text-align: center;
+div img[name="byleth-portrait"] {
+    max-width: 600px;
+    height: auto;
 }
 
 .main-content {
     text-align: center;
 }
 
-.main-content h2 {
+.main-content h2, h3 {
     color: red;
 }
 
@@ -61,13 +62,16 @@ img[name="three-houses-cover"] {
     height: 25%;
 }
 
-/* nav bar styles */
+/* end Homepage styles */
+
+/* begin nav bar styles */
 
 nav {
     display: flex;
     justify-content: center;
     text-transform: uppercase;
     margin-top: 55px;
+    margin-bottom: 5px;
     /* background-color: red; */
 }
 
@@ -93,12 +97,23 @@ nav a {
 
 nav a:hover {
     background-color: rgb(95, 95, 95);
-    color: goldenrod;
+    color: rgb(212,175,55); /* Metallic Gold*/
 }
 
-/* nav a:hover {
-    color: black;
-} */
+/* end nav bar styles */
+
+
+
+
+
+
+
+
+
+
+
+
+/* old styles here */
 
 /*
 
@@ -205,7 +220,9 @@ textarea {
     border: 0;
     font-size: 1.2em;
     cursor: pointer;
-} */
+} 
+
+*/
 
 
 
