@@ -56,8 +56,8 @@ app.use(morgan('dev'));
 app.use('/characters', characterRoutes);
 
 app.get('/', (req, res) => {
-    res.redirect('/characters');
-})
+    res.status(200).render('index', {title: 'home page'});
+});
 
 app.get('/about', (req, res) => {
     res.status(200).render('about', {title: 'about page'});

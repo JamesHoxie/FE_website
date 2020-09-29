@@ -1,5 +1,13 @@
 <html lang="en">
-<%- include("../partials/head.ejs") %>
+  <!--NOTE, href for css stylesheet must be prepended by ../, all other ejs files have not needed this.
+  It appears to be related to the create route being nested 2 layers deep, where characters is only 1 layer deep-->
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA Compatible" content="ie=edge">
+    <title>FE Website Project | <%= title %></title>
+    <link rel="stylesheet" type= "text/css" href="../css/stylesheet.css">
+</head>
 
 <body>
     <%- include("../partials/nav.ejs") %>
