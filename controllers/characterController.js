@@ -28,7 +28,15 @@ const character_create_get = function(req, res) {
     res.status(200).render('characters/create', {title: 'create page'});
 }
 
+// image file for upload as profile portrait is in req.file
 const character_create_post = function(req, res) {
+    console.log(req.file);
+    // set portrait field in req.body to field filename in req.file 
+    // to store the portrait filename on the server for recall later for this profile
+    // this line does nothing if no file was uploaded since it just sets portrait to undefined, which will not be uploaded
+    req.body.portrait = req.file.filename; 
+
+
     const character = new Character(req.body);
 
     character.save()

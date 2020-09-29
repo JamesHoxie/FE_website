@@ -11,22 +11,25 @@
 </head>
   
 <body>
-    <h1 id="page-title">FE Website Character Profile Creation Page</h1>
-
-    <%- include('../partials/nav.ejs') %>
+    <div class="header-container">
+      <h1 id="page-title">Character Profile Creation Page</h1>
+      <%- include('../partials/nav.ejs') %>
+    </div>
 
     <!--BEGIN parchment-container-->
     <div class="parchment-container">
       <!--BEGIN main-content container-->
       <div class="main-content container">
         <div class="create-character-profile content">
-          <form action="/characters/create" method="POST">
+          <form action="/characters/create" enctype="multipart/form-data" method="POST">
               <label for="name">Character Name</label>
               <input type="text" id="name" name="name" required>
               <label for="quote">Character Quote</label>
               <input type="text" id="quote" name="quote">
               <label for="bio">Character Bio</label>
               <textarea id="bio" name="bio"></textarea>
+              <label for="portrait">Character Portrait:</label>
+              <input type="file" id="portrait" name="portrait" accept="image/*">
               <button>Submit</button>
           </form>
         </div>            

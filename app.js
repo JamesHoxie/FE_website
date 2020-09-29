@@ -24,7 +24,7 @@ mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true})
     .then((result) => {
         console.log('Connected to FE-Database');
         
-        // listen for requests on localhost now that database was connected to successfully 
+        // listen for requests on localhost port 3000 now that database was connected to successfully 
         app.listen(3000);
     })
     .catch((err) => {

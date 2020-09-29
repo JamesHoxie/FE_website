@@ -15,6 +15,10 @@ const characterSchema = new Schema({
     bio: {
         type: String, 
         required: false
+    },
+    portrait: {
+        type: String,
+        required: false
     }
 }, {timestamps: true});
 
