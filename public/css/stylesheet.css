@@ -15,7 +15,11 @@ body {
     justify-content: center;
 }
 
-/* begin Homepage styles */ 
+/* remove blue colors to links and remove underlines to links */
+a {
+    text-decoration: none;
+    color: black;
+}
 
 #page-title {
     margin-bottom: -105px;
@@ -26,6 +30,8 @@ body {
     color: rgb(212,175,55, 0.85); /* Metallic Gold*/
     text-align: center;
 }
+
+/* BEGIN Homepage styles */ 
 
 div[class="body-container"] {
     /* background-color: indigo; */
@@ -49,11 +55,11 @@ div img[name="byleth-portrait"] {
     height: auto;
 }
 
-.main-content {
+.main-content-container {
     text-align: center;
 }
 
-.main-content h2, h3 {
+.main-content-container h2, h3 {
     color: red;
 }
 
@@ -62,9 +68,9 @@ img[name="three-houses-cover"] {
     height: 25%;
 }
 
-/* end Homepage styles */
+/* END Homepage styles */
 
-/* begin nav bar styles */
+/* BEGIN nav bar styles */
 
 nav {
     display: flex;
@@ -100,7 +106,7 @@ nav a:hover {
     color: rgb(212,175,55); /* Metallic Gold*/
 }
 
-/* end nav bar styles */
+/* END nav bar styles */
 
 
 
@@ -121,31 +127,78 @@ footer {
     margin: 80px auto 20px;
 }
 
-
-
 h2 {
     margin-bottom: 40px;
 }
 
-h3 {
-    text-transform: capitalize;
-    margin-bottom: 8px;
-}
+/* BEGIN styles for characters page */
 
-.content {
-    margin-left: 20px;
-}
-
-.character-profiles a {
-    display: block;
+/* Display each character profile in block layout*/
+.character-profiles-content a {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: row;
     margin: 40px 0;
     padding-left: 30px;
     border-left: 6px solid crimson;
 }
 
-.character-profiles a:hover h3 {
+.character-profiles-content a:hover h3 {
     color: forestgreen;
 }
+
+/* Capitalize names of all character names on characters page*/
+h3[class="name"] {
+    text-transform: capitalize;
+    margin-bottom: 8px;
+}
+
+p[class="bio"] {
+    max-width: 380px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    word-wrap: break-word;
+}
+
+a[class="single"] {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+/* Float profile details (name, quote, bio blurb to left for each profile dispalyed on characters page) */
+div[class="profile-details"] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 380px;
+    max-width: 380px;
+    min-width: 380px;
+    height: 380px;
+    max-height: 380px;
+    min-height: 380px;
+    margin-right: 5em;
+}
+
+div[class="profile-portrait"] {
+    width: 380px;
+    max-width: 380px;
+    height: 380px;
+    max-height: 380px;
+}
+
+/* Resize profile portrait and float profile portrait to right of details for each profile displayed on characters page */
+img[name="portrait"] {
+    height: 75%;
+    width: 75%;
+}
+
+
+/* END styles for characters page*/
+
+
+
+/* BEGIN styles for details page */
 
 .details {
     position: relative;
@@ -190,6 +243,12 @@ h3 {
     display: block;
 }
 
+/* END styles for details page */
+
+
+
+/* BEGIN styles for create page */
+
 .create-character-profile form {
     max-width: 400px;
     margin: 0 auto;
@@ -221,6 +280,8 @@ textarea {
     font-size: 1.2em;
     cursor: pointer;
 } 
+
+/* END styles for details page */
 
 
 

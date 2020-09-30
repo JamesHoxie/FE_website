@@ -12,17 +12,34 @@
         <!--BEGIN parchment-container-->
         <div class="parchment-container">
             <!--BEGIN main-content container-->
-            <div class="main-content container">
-                <div class="character-profiles content">
+            <div class="main-content-container">
+                <div class="character-profiles-content">
                     <h2>All Character Profiles</h2>
                     
                     <% if (characters.length > 0) { %>
                         <% characters.forEach((charProfile) => { %>
                             <a class="single" href="/characters/<%= charProfile.id %>">
-                                <h3 class="name"><%= charProfile.name %></h3>
-                                <p class="quote">"<%= charProfile.quote %>"</p>
-                                <p class="bio"><%= charProfile.bio %></p>
-                                <img name="portrait" src="/portraits/<%= charProfile.portrait %>">
+                                <div class="profile-details">
+                                    <h3 class="name"><%= charProfile.name %></h3>
+                                    <p class="quote">"<%= charProfile.quote %>"</p>
+
+
+                                    <% if (charProfile.bio.length < 300) { %>
+                                        <p class="bio"><%= charProfile.bio %></p>
+                                    <% } else { %>
+                                        <p class="bio"><%= charProfile.bio.substring(0, 300) + "..." %></p>
+                                    <% } %>
+
+
+
+
+                                    
+                                </div>
+                                
+                                <div class="profile-portrait">
+                                    <img name="portrait" src="/portraits/<%= charProfile.portrait %>">
+                                </div>
+                                                 
                             </a>
                         <% }); %>       
                     <%} else { %>

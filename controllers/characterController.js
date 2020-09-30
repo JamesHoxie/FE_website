@@ -33,10 +33,15 @@ const character_create_post = function(req, res) {
     console.log(req.file);
     // set portrait field in req.body to field filename in req.file 
     // to store the portrait filename on the server for recall later for this profile
-    // this line does nothing if no file was uploaded since it just sets portrait to undefined, which will not be uploaded
-    req.body.portrait = req.file.filename; 
+    
+    // if req.file is undefined then no file was chosen for upload, let mongoose set the portrait field to the default in this case, 
+    // otherwise set the portrait to the filename uploaded to the public/portraits directory
+    if (req.file) {
+        req.body.portrait = req.file.filename;
+    }
 
-
+    
+     
     const character = new Character(req.body);
 
     character.save()

@@ -18,7 +18,8 @@ const characterSchema = new Schema({
     },
     portrait: {
         type: String,
-        required: false
+        required: true,
+        default: "Fire_Emblem_Logo.png"
     }
 }, {timestamps: true});
 
