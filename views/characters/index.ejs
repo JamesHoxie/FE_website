@@ -23,17 +23,12 @@
                                     <h3 class="name"><%= charProfile.name %></h3>
                                     <p class="quote">"<%= charProfile.quote %>"</p>
 
-
+                                    <!--cut off bio if it is too long to display on the characters page-->
                                     <% if (charProfile.bio.length < 300) { %>
                                         <p class="bio"><%= charProfile.bio %></p>
                                     <% } else { %>
                                         <p class="bio"><%= charProfile.bio.substring(0, 300) + "..." %></p>
                                     <% } %>
-
-
-
-
-                                    
                                 </div>
                                 
                                 <div class="profile-portrait">

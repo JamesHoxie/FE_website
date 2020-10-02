@@ -205,9 +205,6 @@ img[name="portrait"] {
 }
 
 .delete {
-    position: absolute;
-    top: 0;
-    right: 0;
     border-radius: 50%;
     padding: 8px;
 }
@@ -218,9 +215,6 @@ img[name="portrait"] {
 }
 
 .update {
-    position: absolute;
-    top: 0;
-    right: 50;
     border-radius: 50%;
     padding: 8px;
 }
@@ -231,9 +225,6 @@ img[name="portrait"] {
 }
 
 .update-character-profile {
-    position: absolute;
-    top: 200;
-    right: 100;
     padding: 10px 10px 10px 10px;
     outline: 1px solid black;
 }

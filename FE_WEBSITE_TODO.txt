@@ -5,15 +5,15 @@ in rough top to bottom order...
 	
 	- add parchment background	
 
-	- resize profile portraits
+	✓ resize profile portraits
 
-	- float portraits to right and display name, quote, bio blurb to left or other way around on chars page
+	✓ float portraits to right and display name, quote, bio blurb to left or other way around on chars page
 
 	- implement profile details page to display portrait on usual parchment background with full bio and other
 	given details with labels. display profile edit (PUT) and delete (DELETE) buttons in upper right corner
-	of parchment
+	of parchment, tool tips that pop up when hovering over the edit and delete buttons with description text
 
-	- implement homepage latest profile addition section to display the profile image and name last added to 	the database
+	- implement homepage latest profile addition section to display the profile image and name last added to 		the database
 
 	- put some content on the homepage after the latest addition section
 
