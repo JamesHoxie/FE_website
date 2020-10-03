@@ -22,38 +22,39 @@
             <div class="main-content-container">
                 <div class="details-content">
                     <h2><%= character.name %></h2>
-                    <h3>"<%= character.quote %>"</h3>
-                    <div class="content">
-                        <p><%= character.bio%></p>
-                    </div>
-                    <div class="profile-portrait">
-                        <img name="portrait" src="/portraits/<%= character.portrait %>">
-                    </div>
-                    <a class="delete" data-doc="<%= character.id %>">
-                        <img src='/trashcan.svg' alt='delete'>
-                    </a>
                     <a class="update" data-doc="<%= character.id %>">
                         <img src='/pencil.png' alt='update'>
                     </a>
-                </div>
-            
-                <div class="update-character-profile">
-                    <label for="name">Character Name</label>
-                    <input type="text" id="name" name="name" required>
-                    <label for="quote">Character Quote</label>
-                    <input type="text" id="quote" name="quote">
-                    <label for="bio">Character Bio</label>
-                    <textarea id="bio" name="bio"></textarea>
-                    <button id="update-button">Update</button>
-                </div>            
+                    <a class="delete" data-doc="<%= character.id %>">
+                        <img src='/trashcan.svg' alt='delete'>
+                    </a>
+                    <div class="profile-portrait">
+                        <img name="portrait" src="/portraits/<%= character.portrait %>">
+                    </div>
+                    <div class="update-area">
+                        <div class="update-character-profile">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" value="<%= character.name %>" required>
+                            <label for="quote">Quote</label>
+                            <input type="text" id="quote" name="quote" value="<%= character.quote %>">
+                            <label for="bio">Bio</label>
+                            <textarea id="bio" name="bio"><%= character.bio %></textarea>
+                            <button id="update-button">Update</button>
+                        </div>
+                    </div>
+                    
+                    <h3 class="quote">"<%= character.quote %>"</h3>
+                    <div class="content">
+                        <p><%= character.bio%></p>
+                    </div>
+                </div>           
             </div>
             <!--END MAIN-CONTENT CONTAINER-->
         </div>
         <!--END PARCHMENT CONTAINER-->
-    </div>
-    
 
-    <%- include("../partials/footer.ejs") %>
+        <%- include("../partials/footer.ejs") %>
+    </div>
 
     <script>
         const trashcan = document.querySelector('a.delete');

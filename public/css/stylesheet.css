@@ -36,6 +36,10 @@ a {
 div[class="body-container"] {
     /* background-color: indigo; */
     margin: 0px 200px 200px 200px;
+    min-width: 900px;
+    min-height: 900px;
+    max-width: 900px;
+    max-height: 900px;
 }
 
 div[class="header-container"] {
@@ -60,7 +64,7 @@ div img[name="byleth-portrait"] {
 }
 
 .main-content-container h2, h3 {
-    color: red;
+    color: black;
 }
 
 img[name="three-houses-cover"] {
@@ -118,9 +122,6 @@ nav a:hover {
 
 
 
-
-/* old styles here */
-
 footer {
     color: #777;
     text-align: center;
@@ -129,6 +130,7 @@ footer {
 
 h2 {
     margin-bottom: 40px;
+    text-align: center;
 }
 
 /* BEGIN styles for characters page */
@@ -200,40 +202,69 @@ img[name="portrait"] {
 
 /* BEGIN styles for details page */
 
-.details {
-    position: relative;
-}
-
+/* Trashcan icon */
 .delete {
+    position: relative;
+    bottom: 6.5em;
+    left: 25em;
     border-radius: 50%;
     padding: 8px;
 }
 
-.delete:hover {
-    cursor: pointer;
-    box-shadow: 1px 2px 3px rgba(0, 0, 0, .2);
-}
-
+/* Pencil icon */
 .update {
+    position: relative;
+    bottom: 6.5em;
+    left: 25em;
     border-radius: 50%;
     padding: 8px;
 }
 
-.update:hover {
+.delete:hover, .update:hover, button:hover {
     cursor: pointer;
-    box-shadow: 1px 2px 3px rgba(0, 0, 0, .2);
+    box-shadow: 1px 2px 3px rgba(255, 255, 255, 1);
+}
+
+#update-button, button {
+    margin-top: 1em;
+    border-style: groove;
+    border-color: rgb(192, 192, 192);
+    border-width: .35em;
+    background-color: rgb(212,175,55); /* Metallic Gold*/
+    width: 6.5em;
+    height: auto;
 }
 
 .update-character-profile {
-    padding: 10px 10px 10px 10px;
-    outline: 1px solid black;
+    position: relative;
+    bottom: 23em;
+    left: 32em;
 }
 
 .update-character-profile input,
 .update-character-profile textarea{
     display: block;
+    position: relative;
+    margin: auto;
 }
 
+.profile-portrait {
+    border: solid;
+    border-style: ridge;
+    border-color: silver;
+    border-width: .5em;
+    border-radius: .45em;
+    background-color: rgb(192, 192, 192, .55);
+}
+
+.update-area {
+    width: 7.5%;
+    height: 7.5%;
+}
+
+#quote, .quote {
+    font-style: italic;
+}
 /* END styles for details page */
 
 
@@ -259,18 +290,8 @@ img[name="portrait"] {
 }
 
 textarea {
-    height: 120px;
+    height: 15em;
 }
-
-.create-character-profile button {
-    margin-top: 20px;
-    background: crimson;
-    color: white;
-    padding: 6px;
-    border: 0;
-    font-size: 1.2em;
-    cursor: pointer;
-} 
 
 /* END styles for details page */
 
