@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const characterRoutes = require('./routes/characterRoutes');
+const Character = require('./models/character');
 
 // express app, instance of express app
 const app = express();
@@ -56,7 +57,14 @@ app.use(morgan('dev'));
 app.use('/characters', characterRoutes);
 
 app.get('/', (req, res) => {
-    res.status(200).render('index', {title: 'home page'});
+    // get most recent character from DB to display on homepage
+    Character.findOne().sort({createdAt: -1})
+        .then((result) => {
+            res.status(200).render('index', {title: 'home page', featuredProfile: result});
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 });
 
 app.get('/about', (req, res) => {
