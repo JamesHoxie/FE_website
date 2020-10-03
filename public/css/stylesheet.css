@@ -54,8 +54,8 @@ div[class="parchment-container"] {
     margin-top: -60px;
 }
 
-div img[name="byleth-portrait"] {
-    max-width: 600px;
+div img[name="featured-profile-portrait"] {
+    width: 15em;
     height: auto;
 }
 
