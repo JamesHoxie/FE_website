@@ -157,6 +157,10 @@ h2 {
     background-color: rgb(212,175,55, 0.7); /* Metallic Gold*/
 }
 
+.character-profiles-content a:hover {
+    background-color: rgb(212,175,55, 0.2); /* Metallic Gold*/
+}
+
 /* Capitalize names of all character names on characters page*/
 h3[class="name"] {
     text-transform: capitalize;
