@@ -147,18 +147,16 @@ h2 {
     flex-direction: row;
     margin: 40px 0;
     padding-left: 30px;
+    border-left: solid rgba(0, 0, 0, 0);
 }
 
-/* .character-profiles-content a:hover h3 {
-    color: forestgreen;
-} */
-
 .character-profiles-content a:hover div[class="profile-portrait"] {
-    background-color: rgb(212,175,55, 0.7); /* Metallic Gold*/
+    background-color: rgba(212,175,55, 0.7); /* Metallic Gold*/
 }
 
 .character-profiles-content a:hover {
     background-color: rgb(212,175,55, 0.2); /* Metallic Gold*/
+    border-left: solid black;
 }
 
 /* Capitalize names of all character names on characters page*/
