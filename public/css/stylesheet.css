@@ -214,21 +214,26 @@ img[name="portrait"] {
 /* BEGIN styles for details page */
 
 /* Trashcan icon */
-.delete {
-    position: relative;
+.delete{
+    /* position: relative;
     bottom: 6.5em;
     left: 25em;
+     */
     border-radius: 50%;
     padding: 8px;
+    display: inline-block;
 }
 
 /* Pencil icon */
 .update {
-    position: relative;
+    /* position: relative;
     bottom: 6.5em;
     left: 25em;
+     */
     border-radius: 50%;
     padding: 8px;
+    display: inline-block;
+    margin-left: 45.5em;
 }
 
 .delete:hover, .update:hover, button:hover {

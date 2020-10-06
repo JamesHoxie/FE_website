@@ -21,13 +21,13 @@
             <!--BEGIN main-content container-->
             <div class="main-content-container">
                 <div class="details-content">
-                    <h2><%= character.name %></h2>
                     <a class="update" data-doc="<%= character.id %>">
                         <img src='/pencil.png' alt='update'>
                     </a>
                     <a class="delete" data-doc="<%= character.id %>">
                         <img src='/trashcan.svg' alt='delete'>
                     </a>
+                    <h2><%= character.name %></h2>
                     <div class="profile-portrait">
                         <img name="portrait" src="/portraits/<%= character.portrait %>">
                     </div>
