@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const characterRoutes = require('./routes/characterRoutes');
+const authRoutes = require('./routes/authRoutes')
 const Character = require('./models/character');
 
 // express app, instance of express app
@@ -13,8 +14,14 @@ app.set('view engine', 'ejs');
 // set public directory to serve static files from (css stylesheet currently, place images in public as well)
 app.use(express.static(__dirname + '/public'));
 
-// body parser
+// json body parser
+app.use(express.json());
+
+// urlencoded body parser
 app.use(express.urlencoded({ extended: true }));
+
+// fix for deprecation warning for collection.ensureIndex, use createIndexes per mongoose docs
+mongoose.set('useCreateIndex', true);
 
 // uri to connect to mongoDB
 // TODO: use env variables for user (james) and pass (firklelou) 
@@ -55,6 +62,9 @@ app.use(morgan('dev'));
 
 // character routes 
 app.use('/characters', characterRoutes);
+
+// authentication routes
+app.use(authRoutes);
 
 app.get('/', (req, res) => {
     // get most recent character from DB to display on homepage

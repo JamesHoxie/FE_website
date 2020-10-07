@@ -28,3 +28,6 @@ in rough top to bottom order...
 	*very last, ie, before publishing on netlify/heroku, whatever
 
 	- fill out about section with personal intentions, link to my github, any legal junk needed, contact info
+
+
+	NOTE: express is parsing out urlencoded and json encoded bodies, multer is parsing out multipart form data
