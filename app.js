@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const characterRoutes = require('./routes/characterRoutes');
+const Character = require('./models/character');
 
 // express app, instance of express app
 const app = express();
@@ -24,7 +25,7 @@ mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true})
     .then((result) => {
         console.log('Connected to FE-Database');
         
-        // listen for requests on localhost now that database was connected to successfully 
+        // listen for requests on localhost port 3000 now that database was connected to successfully 
         app.listen(3000);
     })
     .catch((err) => {
@@ -56,8 +57,15 @@ app.use(morgan('dev'));
 app.use('/characters', characterRoutes);
 
 app.get('/', (req, res) => {
-    res.redirect('/characters');
-})
+    // get most recent character from DB to display on homepage
+    Character.findOne().sort({createdAt: -1})
+        .then((result) => {
+            res.status(200).render('index', {title: 'home page', featuredProfile: result});
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+});
 
 app.get('/about', (req, res) => {
     res.status(200).render('about', {title: 'about page'});

@@ -1,34 +1,60 @@
 <html lang="en">
-<%- include("../partials/head.ejs") %>
+  <!--NOTE, href for css stylesheet must be prepended by ../, all other ejs files have not needed this.
+  It appears to be related to the create route being nested 2 layers deep, where characters is only 1 layer deep-->
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA Compatible" content="ie=edge">
+    <title>FE Website Project | <%= title %></title>
+    <link rel="stylesheet" type= "text/css" href="../css/stylesheet.css">
+</head>
 
 <body>
-    <%- include("../partials/nav.ejs") %>
-
-    <div class="details content">
-        <h2><%= character.name %></h2>
-        <h3>"<%= character.quote %>"</h3>
-        <div class="content">
-            <p><%= character.bio%></p>
+    <div class="body-container">
+        <div class="header-container">
+            <h1 id="page-title">Fire Emblem Character Profiles</h1>
+            <%- include('../partials/nav.ejs') %>
         </div>
-        <a class="delete" data-doc="<%= character.id %>">
-            <img src='/trashcan.svg' alt='delete'>
-        </a>
-        <a class="update" data-doc="<%= character.id %>">
-            <img src='/pencil.png' alt='update'>
-        </a>
-    </div>
+        
+        <!--BEGIN parchment-container-->
+        <div class="parchment-container">
+            <!--BEGIN main-content container-->
+            <div class="main-content-container">
+                <div class="details-content">
+                    <a class="update" data-doc="<%= character.id %>">
+                        <img src='/pencil.png' alt='update'>
+                    </a>
+                    <a class="delete" data-doc="<%= character.id %>">
+                        <img src='/trashcan.svg' alt='delete'>
+                    </a>
+                    <h2><%= character.name %></h2>
+                    <div class="profile-portrait">
+                        <img name="portrait" src="/portraits/<%= character.portrait %>">
+                    </div>
+                    <div class="update-area">
+                        <div class="update-character-profile">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" value="<%= character.name %>" required>
+                            <label for="quote">Quote</label>
+                            <input type="text" id="quote" name="quote" value="<%= character.quote %>">
+                            <label for="bio">Bio</label>
+                            <textarea id="bio" name="bio"><%= character.bio %></textarea>
+                            <button id="update-button">Update</button>
+                        </div>
+                    </div>
+                    
+                    <h3 class="quote">"<%= character.quote %>"</h3>
+                    <div class="content">
+                        <p><%= character.bio%></p>
+                    </div>
+                </div>           
+            </div>
+            <!--END MAIN-CONTENT CONTAINER-->
+        </div>
+        <!--END PARCHMENT CONTAINER-->
 
-    <div class="update-character-profile content">
-        <label for="name">Character Name</label>
-        <input type="text" id="name" name="name" required>
-        <label for="quote">Character Quote</label>
-        <input type="text" id="quote" name="quote">
-        <label for="bio">Character Bio</label>
-        <textarea id="bio" name="bio"></textarea>
-        <button id="update-button">Update</button>
+        <%- include("../partials/footer.ejs") %>
     </div>
-
-    <%- include("../partials/footer.ejs") %>
 
     <script>
         const trashcan = document.querySelector('a.delete');
@@ -40,16 +66,20 @@
         updateInputBoxes.style.display = 'none';
 
         trashcan.addEventListener('click', (event) => {
-            const endpoint = `/characters/${trashcan.dataset.doc}`;
+            const sure = confirm("Are you sure you want to delete this profile? (This cannot be undone)");
 
-            fetch(endpoint, {
-                method: 'DELETE'
-            })
-            .then(response => response.json())
-            .then(data => window.location.href = data.redirect)
-            .catch((err) => {
-                console.log(err);
-            });
+            if (sure) {
+                const endpoint = `/characters/${trashcan.dataset.doc}`;
+
+                fetch(endpoint, {
+                    method: 'DELETE'
+                })
+                .then(response => response.json())
+                .then(data => window.location.href = data.redirect)
+                .catch((err) => {
+                    console.log(err);
+                });
+            }
         });
 
 

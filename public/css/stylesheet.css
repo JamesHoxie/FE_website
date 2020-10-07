@@ -1,46 +1,131 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
-body {
-    max-width: 1200;
-    margin: 20px auto;
-    padding: 0 20px;
-    font-family: 'Montserrat', sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Italianno&display=swap');
+
+html {
+    background: url("../images/background.jpg") no-repeat center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
-p, h1, h2, h3, a, ul {
-    margin: 0;
-    padding: 0;
-    text-decoration: none;
-    color: #222;
+body {
+    max-width: 1200;
+    font-family: 'Montserrat', sans-serif;
+    justify-content: center;
 }
+
+/* remove blue colors to links and remove underlines to links */
+a {
+    text-decoration: none;
+    color: black;
+}
+
+#page-title {
+    margin-bottom: -105px;
+    padding: 25px 25px 25px 25px;
+    background-color: rgb(70, 130, 180, 0.85); /* Steelblue */
+    font-size: 5em;
+    font-family: 'Italianno', cursive;
+    color: rgb(212,175,55, 0.85); /* Metallic Gold*/
+    text-align: center;
+}
+
+/* BEGIN Homepage styles */ 
+
+div[class="body-container"] {
+    /* background-color: indigo; */
+    margin: 0px 200px 200px 200px;
+    min-width: 900px;
+    min-height: 900px;
+    max-width: 900px;
+    max-height: 900px;
+}
+
+div[class="header-container"] {
+    /* background-color: hotpink; */
+    padding: 50px 50px 50px 50px;
+    /* margin-bottom: 200px; */
+}
+
+div[class="parchment-container"] {
+    padding: 25px 25px 25px 25px;
+    background-color: rgb(218, 165, 32, 0.85); /* goldenrod */
+    margin-top: -60px;
+}
+
+img[name="featured-profile-portrait"] {
+    width: 15em;
+    height: auto;
+}
+
+.main-content-container {
+    text-align: center;
+    /* background-image: url("../images/parchment.jpg"); */
+    background-image: url("../images/parchment_opaque.png");
+    background-repeat: no-repeat center fixed;
+    background-size: cover;
+    padding: 1em 1em 1em 1em;
+}
+
+.main-content-container h2, h3 {
+    color: black;
+}
+
+img[name="three-houses-cover"] {
+    width: 25%;
+    height: 25%;
+}
+
+/* END Homepage styles */
+
+/* BEGIN nav bar styles */
 
 nav {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 60px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #ddd;
+    justify-content: center;
     text-transform: uppercase;
+    margin-top: 55px;
+    margin-bottom: 5px;
+    /* background-color: red; */
 }
 
 nav ul {
     display: flex;
-    justify-content: space-between;
     align-items: flex-end;
 }
 
 nav li {
+    text-align: center; /* center text within individual buttons on nav bar */
     list-style-type: none;
-    margin-left: 20px;
+    height: auto;
 }
 
-nav h1 {
-    font-size: 3em;
+nav a {
+    color: silver;
+    font-weight: 700;
+    text-decoration: none; /* remove underlines from links */
+    border: 2px solid white;
+    background-color: black;
+    padding: 5px 15px 5px 15px;
 }
 
-nav p, nav a {
-    color: #777;
-    font-weight: 300;
+nav a:hover {
+    background-color: rgb(95, 95, 95);
+    color: rgb(212,175,55); /* Metallic Gold*/
 }
+
+/* END nav bar styles */
+
+
+
+
+
+
+
+
+
+
 
 footer {
     color: #777;
@@ -50,70 +135,157 @@ footer {
 
 h2 {
     margin-bottom: 40px;
+    text-align: center;
 }
 
-h3 {
+/* BEGIN styles for characters page */
+
+/* Display each character profile in block layout*/
+.character-profiles-content a {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: row;
+    margin: 40px 0;
+    padding-left: 30px;
+    border-left: solid rgba(0, 0, 0, 0);
+}
+
+.character-profiles-content a:hover div[class="profile-portrait"] {
+    background-color: rgba(212,175,55, 0.7); /* Metallic Gold*/
+}
+
+.character-profiles-content a:hover {
+    background-color: rgb(212,175,55, 0.2); /* Metallic Gold*/
+    border-left: solid black;
+}
+
+/* Capitalize names of all character names on characters page*/
+h3[class="name"] {
     text-transform: capitalize;
     margin-bottom: 8px;
 }
 
-.content {
-    margin-left: 20px;
+p[class="bio"] {
+    max-width: 380px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    word-wrap: break-word;
 }
 
-.character-profiles a {
-    display: block;
-    margin: 40px 0;
-    padding-left: 30px;
-    border-left: 6px solid crimson;
+a[class="single"] {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
-.character-profiles a:hover h3 {
-    color: forestgreen;
+div[class="profile-details"] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 350px;
+    max-width: 350px;
+    min-width: 350px;
+    height: 350px;
+    max-height: 350px;
+    min-height: 350px;
+    margin-right: 5em;
 }
 
-.details {
-    position: relative;
+div[class="profile-portrait"] {
+    width: 350px;
+    max-width: 350px;
+    min-width: 350px;
+    height: 350px;
+    max-height: 350px;
+    min-height: 350px;
 }
 
-.delete {
-    position: absolute;
-    top: 0;
-    right: 0;
+/* Resize profile portrait and float profile portrait to right of details for each profile displayed on characters page */
+img[name="portrait"] {
+    height: 100%;
+    width: 100%;
+}
+
+
+/* END styles for characters page*/
+
+
+
+/* BEGIN styles for details page */
+
+/* Trashcan icon */
+.delete{
+    /* position: relative;
+    bottom: 6.5em;
+    left: 25em;
+     */
     border-radius: 50%;
     padding: 8px;
+    display: inline-block;
 }
 
-.delete:hover {
-    cursor: pointer;
-    box-shadow: 1px 2px 3px rgba(0, 0, 0, .2);
-}
-
+/* Pencil icon */
 .update {
-    position: absolute;
-    top: 0;
-    right: 50;
+    /* position: relative;
+    bottom: 6.5em;
+    left: 25em;
+     */
     border-radius: 50%;
     padding: 8px;
+    display: inline-block;
+    margin-left: 45.5em;
 }
 
-.update:hover {
+.delete:hover, .update:hover, button:hover {
     cursor: pointer;
-    box-shadow: 1px 2px 3px rgba(0, 0, 0, .2);
+    box-shadow: 1px 2px 3px rgba(255, 255, 255, 1);
+}
+
+#update-button, button {
+    margin-top: 1em;
+    border-style: groove;
+    border-color: rgb(192, 192, 192);
+    border-width: .35em;
+    background-color: rgb(212,175,55); /* Metallic Gold*/
+    width: 6.5em;
+    height: auto;
 }
 
 .update-character-profile {
-    position: absolute;
-    top: 200;
-    right: 100;
-    padding: 10px 10px 10px 10px;
-    outline: 1px solid black;
+    position: relative;
+    bottom: 23em;
+    left: 32em;
 }
 
 .update-character-profile input,
 .update-character-profile textarea{
     display: block;
+    position: relative;
+    margin: auto;
 }
+
+.profile-portrait {
+    border: solid;
+    border-style: ridge;
+    border-color: silver;
+    border-width: .5em;
+    border-radius: .45em;
+    background-color: rgb(192, 192, 192, .55);
+}
+
+.update-area {
+    width: 7.5%;
+    height: 7.5%;
+}
+
+#quote, .quote {
+    font-style: italic;
+}
+/* END styles for details page */
+
+
+
+/* BEGIN styles for create page */
 
 .create-character-profile form {
     max-width: 400px;
@@ -134,15 +306,12 @@ h3 {
 }
 
 textarea {
-    height: 120px;
+    height: 15em;
 }
 
-.create-character-profile button {
-    margin-top: 20px;
-    background: crimson;
-    color: white;
-    padding: 6px;
-    border: 0;
-    font-size: 1.2em;
-    cursor: pointer;
-}
+/* END styles for details page */
+
+
+
+
+
