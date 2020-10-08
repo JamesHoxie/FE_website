@@ -4,6 +4,9 @@ const mongoose = require('mongoose');
 const characterRoutes = require('./routes/characterRoutes');
 const authRoutes = require('./routes/authRoutes')
 const Character = require('./models/character');
+const cookieParser = require('cookie-parser');
+const requireAuth = require('./authChecker.js').requireAuth;
+const checkUser = require('./authChecker.js').checkUser;
 
 // express app, instance of express app
 const app = express();
@@ -16,6 +19,8 @@ app.use(express.static(__dirname + '/public'));
 
 // json body parser
 app.use(express.json());
+
+app.use(cookieParser());
 
 // urlencoded body parser
 app.use(express.urlencoded({ extended: true }));
@@ -59,12 +64,22 @@ app.use(morgan('dev'));
 
 
 // ************************ SERVER END POINTS START HERE  ************************
+app.get('*', checkUser);
 
-// character routes 
-app.use('/characters', characterRoutes);
+// character routes, require authentication to display these routes 
+app.use('/characters', requireAuth, characterRoutes);
 
-// authentication routes
+// authentication routes (login and signup)
 app.use(authRoutes);
+
+
+
+
+
+
+
+
+
 
 app.get('/', (req, res) => {
     // get most recent character from DB to display on homepage
