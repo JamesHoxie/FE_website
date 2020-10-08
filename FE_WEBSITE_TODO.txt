@@ -18,13 +18,13 @@ in rough top to bottom order...
 
 	- put some content on the homepage after the latest addition section
 
-	- adjust fonts, general styles on the create page
-
 	- any other stylistic flairs or additions or changes
 
 	- dynamic view rendering of user info based on user local variable you set up already through the checkUser middleware (something something, <%= user.email %>),
 	do not display login and signup buttons if a user is logged in, show them if there is not a user logged in, check if user is null
-	before trying to display the email to the screen, etc
+	before trying to display the email to the screen, do not show logout button if not logged in, etc
+
+	- update frontend to display login, signup, and logout buttons with styling
 
 
 
