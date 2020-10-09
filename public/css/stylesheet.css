@@ -159,10 +159,15 @@ h2 {
     border-left: solid black;
 }
 
-/* Capitalize names of all character names on characters page*/
+/* Capitalize all character names on characters page*/
 h3[class="name"] {
     text-transform: capitalize;
     margin-bottom: 8px;
+}
+
+/* Capitable all character names on details pages*/
+h2[class="name"] {
+    text-transform: capitalize;
 }
 
 p[class="bio"] {
@@ -311,6 +316,32 @@ textarea {
 
 /* END styles for details page */
 
+/* BEGIN styles for login and signup pages */ 
+
+.signup-link {
+    margin-left: 33em;
+}
+
+form[class="login"], form[class="signup"] {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.login input,
+.login textarea,
+.signup input, 
+.signup textarea {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 8px;
+}
+
+.error {
+    color: rgb(250, 21, 21);
+}
+
+/* END styles for login and signup pages */
 
 
 

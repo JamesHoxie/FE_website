@@ -1,3 +1,5 @@
+/* ************************ SERVER SET UP  ************************ */
+
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
@@ -14,25 +16,26 @@ const app = express();
 // register view engine
 app.set('view engine', 'ejs');
 
-// set public directory to serve static files from (css stylesheet currently, place images in public as well)
+// set public directory to serve static files from (css stylesheet and profile images in public)
 app.use(express.static(__dirname + '/public'));
 
 // json body parser
 app.use(express.json());
 
+// cookie parser for jwt
 app.use(cookieParser());
 
 // urlencoded body parser
 app.use(express.urlencoded({ extended: true }));
 
-// fix for deprecation warning for collection.ensureIndex, use createIndexes per mongoose docs
+// fix for deprecation warning for mongoose for collection.ensureIndex, use createIndexes per mongoose docs
 mongoose.set('useCreateIndex', true);
 
 // uri to connect to mongoDB
 // TODO: use env variables for user (james) and pass (firklelou) 
 const dbURI = 'mongodb+srv://james:firkelou@cluster0.bbgap.mongodb.net/FE-Database?retryWrites=true&w=majority';
 
-// connect to FE-Database stored on MongoDB cloud, second arg is to ensure no deprecation warnings are displayed
+// connect to FE-Database stored on MongoDB cloud, second arg object is to ensure no deprecation warnings are displayed
 mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true})
     .then((result) => {
         console.log('Connected to FE-Database');
@@ -48,22 +51,20 @@ mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true})
 // log incoming request details using morgan 3rd party middleware
 app.use(morgan('dev'));
 
-// // log incoming request details using custom middleware, **not use of next() to tell request to call the next middleware function**
-// app.use((req, res, next) => {
-//     console.log('new request made');
-//     console.log('host: ', req.hostname);
-//     console.log('path: ', req.path);
-//     console.log('method: ', req.method);
 
-//     // tell express to move to next middleware down the file after logging request details (server hangs otherwise)
-//     next();
-// });
+
+
+
+
+
+
 
 
 
 
 
 // ************************ SERVER END POINTS START HERE  ************************
+// check if user is logged in on all routes for dynamic rendering to pages
 app.get('*', checkUser);
 
 // character routes, require authentication to display these routes 
@@ -72,15 +73,7 @@ app.use('/characters', requireAuth, characterRoutes);
 // authentication routes (login and signup)
 app.use(authRoutes);
 
-
-
-
-
-
-
-
-
-
+// homepage
 app.get('/', (req, res) => {
     // get most recent character from DB to display on homepage
     Character.findOne().sort({createdAt: -1})
@@ -92,6 +85,7 @@ app.get('/', (req, res) => {
         });
 });
 
+// about page
 app.get('/about', (req, res) => {
     res.status(200).render('about', {title: 'about page'});
 });
