@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 const maxAge = 3 * 24 * 60 * 60; // 3 days in milli
 function createToken(id) {
     // first arg = payload, second arg = secret string to hash, third arg = options
-    return jwt.sign({id}, 'fe secret', {expiresIn: maxAge})
+    return jwt.sign({id}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: maxAge})
 }
 
 

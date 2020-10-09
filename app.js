@@ -1,5 +1,6 @@
+"use strict";
 /* ************************ SERVER SET UP  ************************ */
-
+require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
@@ -9,6 +10,8 @@ const Character = require('./models/character');
 const cookieParser = require('cookie-parser');
 const requireAuth = require('./authChecker.js').requireAuth;
 const checkUser = require('./authChecker.js').checkUser;
+
+const PORT = process.env.PORT || 3000;
 
 // express app, instance of express app
 const app = express();
@@ -31,9 +34,11 @@ app.use(express.urlencoded({ extended: true }));
 // fix for deprecation warning for mongoose for collection.ensureIndex, use createIndexes per mongoose docs
 mongoose.set('useCreateIndex', true);
 
+// fix for deprecation warnings for mongoose for findOneAndUpdate, findOneAndDelete
+mongoose.set('useFindAndModify', false);
+
 // uri to connect to mongoDB
-// TODO: use env variables for user (james) and pass (firklelou) 
-const dbURI = 'mongodb+srv://james:firkelou@cluster0.bbgap.mongodb.net/FE-Database?retryWrites=true&w=majority';
+const dbURI = process.env.MONGO_DB_CONNECTION;
 
 // connect to FE-Database stored on MongoDB cloud, second arg object is to ensure no deprecation warnings are displayed
 mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true})
@@ -41,7 +46,7 @@ mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true})
         console.log('Connected to FE-Database');
         
         // listen for requests on localhost port 3000 now that database was connected to successfully 
-        app.listen(3000);
+        app.listen(PORT);
     })
     .catch((err) => {
         // if we fail to connect to database, log out error details

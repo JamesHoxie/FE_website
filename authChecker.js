@@ -1,3 +1,5 @@
+"use strict";
+require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const User = require('./models/user');
 
@@ -9,7 +11,7 @@ const requireAuth = function(req, res, next) {
 
     // check if json web token exists and is authentic
     if (token) {
-        jwt.verify(token, 'fe secret', (err, decodedToken) => {
+        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decodedToken) => {
             if (err) {
                 // could not authenticate user, jwt was invalid
                 console.log(err.message);
@@ -32,7 +34,7 @@ const checkUser = function(req, res, next) {
 
     // check if json web token exists and is authentic
     if (token) {
-        jwt.verify(token, 'fe secret', async (err, decodedToken) => {
+        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, async (err, decodedToken) => {
             if (err) {
                 console.log(err.message);
                 res.locals.user = null; // user not authenticated, pass null for user local variable
