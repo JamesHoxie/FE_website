@@ -1,5 +1,7 @@
 "use strict";
+
 /* ************************ SERVER SET UP  ************************ */
+
 require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
@@ -10,7 +12,6 @@ const Character = require('./models/character');
 const cookieParser = require('cookie-parser');
 const requireAuth = require('./authChecker.js').requireAuth;
 const checkUser = require('./authChecker.js').checkUser;
-
 const PORT = process.env.PORT || 3000;
 
 // express app, instance of express app
@@ -49,11 +50,10 @@ mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true})
         app.listen(PORT);
     })
     .catch((err) => {
-        // if we fail to connect to database, log out error details
         console.log(err);
     });
 
-// log incoming request details using morgan 3rd party middleware
+// log incoming request details using morgan middleware
 app.use(morgan('dev'));
 
 
@@ -69,6 +69,7 @@ app.use(morgan('dev'));
 
 
 // ************************ SERVER END POINTS START HERE  ************************
+
 // check if user is logged in on all routes for dynamic rendering to pages
 app.get('*', checkUser);
 

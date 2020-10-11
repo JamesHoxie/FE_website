@@ -136,12 +136,22 @@ footer {
 h2 {
     margin-bottom: 40px;
     text-align: center;
+    display: inline-block;
 }
 
 /* BEGIN styles for characters page */
 
 /* Display each character profile in block layout*/
-.character-profiles-content a {
+
+input.searchbar {
+    display: inline-block;
+}
+
+input.searchbar {
+    margin-left: 38em;
+}
+
+.character-profiles-content a.single {
     display: flex;
     align-items: flex-start;
     flex-direction: row;
@@ -154,7 +164,7 @@ h2 {
     background-color: rgba(212,175,55, 0.7); /* Metallic Gold*/
 }
 
-.character-profiles-content a:hover {
+.character-profiles-content a.single:hover {
     background-color: rgb(212,175,55, 0.2); /* Metallic Gold*/
     border-left: solid black;
 }

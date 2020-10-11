@@ -1,18 +1,32 @@
 const Character = require('../models/character');
 
-// character_index, character_details, character_create_get, character_create_post, character_delete
-
+// list of characters profiles page
 const character_index = function(req, res) {
-    // get all characters from DB, sorts in descending order from time of creation (new characters show first)
-    Character.find().sort({createdAt: -1})
+    // if we have a query string parameter for a name, only get profiles with that name,
+    // regexp matches only case insensitive full string (won't match name as a substring of another string) -> 'name' == 'NaMe' but 'xname' != 'name'
+    if (req.query.name) {
+        Character.find({'name': { $regex : new RegExp(`^${req.query.name}$`, "i") }}).sort({createdAt: -1})
+            .then((result) => {
+                res.status(200).render('characters/index', {title: 'index page', characters: result});
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+
+    else { 
+        // get all characters from DB, sorts in descending order from time of creation (new characters show first)
+        Character.find().sort({createdAt: -1})
         .then((result) => {
             res.status(200).render('characters/index', {title: 'index page', characters: result});
         })
         .catch((err) => {
             console.log(err);
         });
+    }
 }
 
+// indiviudal character profile page
 const character_details = function(req, res) {
     const id = req.params.id;
     Character.findById(id)
@@ -24,13 +38,14 @@ const character_details = function(req, res) {
         });
 }
 
+// character profile creation page
 const character_create_get = function(req, res) {
     res.status(200).render('characters/create', {title: 'create page'});
 }
 
-// image file for upload as profile portrait is in req.file
+// character profile creation request
 const character_create_post = function(req, res) {
-    console.log(req.file);
+    console.log(req.file); // image file for upload as profile portrait is in req.file
     // set portrait field in req.body to field filename in req.file 
     // to store the portrait filename on the server for recall later for this profile
     
@@ -39,32 +54,34 @@ const character_create_post = function(req, res) {
     if (req.file) {
         req.body.portrait = req.file.filename;
     }
-
-    
      
     const character = new Character(req.body);
 
+    // save new profile to database, then redirect to characters index page
     character.save()
         .then((result) => {
-            res.redirect('/characters');
+            res.status(200).redirect('/characters');
         })
         .catch((err) => {
             console.log(err);
         });
 }
 
+// delete character profile from database by id (names on characters do not have be unique, do deletion by id instead)
 const character_delete = function(req, res) {
     const id = req.params.id;
 
+    // redirect to characters index page after successful profile deletion
     Character.findByIdAndDelete(id)
         .then((result) => {
-            res.json({redirect: '/characters'});
+            res.status(200).json({redirect: '/characters'});
         })
         .catch((err) => {
             console.log(err);
         });
 }
 
+// character profile update route
 const character_put = function(req, res) {
     const id = req.params.id;
     const data = req.body;
@@ -72,7 +89,7 @@ const character_put = function(req, res) {
 
     Character.findByIdAndUpdate(id, data)
         .then((result) => {
-            res.json({redirect: `/characters/${id}`});
+            res.status(200).json({redirect: `/characters/${id}`});
         })
         .catch((err) => {
             console.log(err);

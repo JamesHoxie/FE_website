@@ -15,6 +15,12 @@
             <div class="main-content-container">
                 <div class="character-profiles-content">
                     <h2>All Character Profiles</h2>
+                    <div class="searchbar-container">
+                        <form action="/characters" enctype="multipart/form-data" method="GET">
+                            <input type="text" id="name" name="name" class="searchbar">
+                            <button>Search</button>
+                        </form>           
+                    </div>
                     <% let topProfile = true; %> <!--boolean flag to skip horizontal rule placement above first profile-->
                     <% if (characters.length > 0) { %>
                         <% characters.forEach((charProfile) => { %>
