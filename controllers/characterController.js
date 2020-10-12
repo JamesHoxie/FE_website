@@ -1,4 +1,5 @@
 const Character = require('../models/character');
+const fs = require('fs');
 
 // list of characters profiles page
 const character_index = function(req, res) {
@@ -71,10 +72,31 @@ const character_create_post = function(req, res) {
 const character_delete = function(req, res) {
     const id = req.params.id;
 
-    // redirect to characters index page after successful profile deletion
-    Character.findByIdAndDelete(id)
+    Character.findById(id)
         .then((result) => {
-            res.status(200).json({redirect: '/characters'});
+            const portraitID = result.portrait;
+            console.log(portraitID);
+
+            // remove profile portrait from storage before deleting profile on mongo
+            if (portraitID !== 'Fire_Emblem_Logo.png') {
+                // only remove profile portrait from storage if it is not the default portrait
+                fs.unlink(`./public/portraits/${portraitID}`, (err) => {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        console.log(`${portraitID} was deleted`);
+                    }
+                  });
+            }
+
+            Character.findByIdAndDelete(id)
+                .then((result) => {
+                    // redirect to characters index page after successful profile deletion
+                    res.status(200).json({redirect: '/characters'});
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
         })
         .catch((err) => {
             console.log(err);
