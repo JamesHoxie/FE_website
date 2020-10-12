@@ -136,9 +136,11 @@ footer {
 h2 {
     margin-bottom: 40px;
     text-align: center;
-    display: inline-block;
 }
 
+h2.profiles {
+    display: inline-block;
+}
 /* BEGIN styles for characters page */
 
 /* Display each character profile in block layout*/

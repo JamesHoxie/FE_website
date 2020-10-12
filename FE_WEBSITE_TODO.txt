@@ -27,7 +27,7 @@ in rough top to bottom order...
 
 	- put some content on the homepage after the latest addition section
 
-	- search bar on characters page to display profiles that only match name or quote
+	✓ search bar on characters page to display profiles that only match name
 
 
 
@@ -35,6 +35,8 @@ in rough top to bottom order...
 	*very last, ie, before publishing on netlify/heroku, whatever
 
 	- fill out about section with personal intentions, link to my github, any legal junk needed, contact info
+
+	- ADD README WITH INFO ABOUT PROJECT TO GITHUB
 
 
 
