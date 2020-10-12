@@ -3,6 +3,7 @@
 <%- include('./partials/head.ejs') %>
 
 <body>
+    <%- include('./partials/usergreeting.ejs') %>
     <div class="body-container">
         <div class="header-container">
             <h1 id="page-title" class="home-page">Fire Emblem Character Profiles</h1>
@@ -15,13 +16,28 @@
 
                 <div class="main-content">
                     <p>
-                        We Love Fire Emblem We Love Fire Emblem We Love Fire Emblem We Love Fire Emblem We Love Fire Emblem We Love Fire Emblem We Love Fire Emblem
-                        We Love Fire Emblem We Love Fire Emblem We Love Fire Emblem We Love Fire Emblem We Love Fire Emblem We Love Fire Emblem We Love Fire Emblem
-                        We Love Fire Emblem We Love Fire Emblem We Love Fire Emblem We Love Fire Emblem We Love Fire Emblem We Love Fire Emblem We Love Fire Emblem           
+                        This website implements standard Create, Read, Update, and Delete (CRUD) operations on a remote MongoDB server. 
+                        The website uses NodeJS as a backend with the Express library to handle http requests and responses and the ejs templating engine to render dynamic html pages.
+                        The Mongoose library is used to store profiles, user accounts, and interface with MongoDB. 
+                        The bcrypt library is used to hash and salt user profile passwords before storing them in MongoDB.
+                        User authentication is accomplished through the use of JSON web tokens with the jsonwebtoken and cookieparser libraries.
+                        Other dependencies can be viewed in the package.json file in the source code on my <a class="hyperlink" href="https://github.com/JamesHoxie">GitHub</a>
                     </p>
-                </div>
-                <div>
-                    <img name="three-houses-cover" src="images/three-houses-cover.jpg">
+                    <br>
+                    <p>
+                        This website was made as a personal project to demonstrate my skillset to potential employers with content that I enjoy. 
+                        All official aspects of the Fire Emblem series are copyrights of Nintendo and Intelligent Systems.
+                        I am not using any of this content for commercial purposes or creating derivative works, and the content on this site cannot be used as a substitute for the original copyrighted material.
+                        No copyright infringement is intended in using such content on this website.        
+                    </p>
+                    <br>
+                    <p>
+                        If you feel that any content on this site is in violation of copyright, please contact me at james.hoxie@gmail.com and I will remove any and all infringing material from the site or take down the site as soon as possible.
+                    </p>
+                    <br>
+                    <p>
+                        Source code for this site can be found on my <a class="hyperlink" href="https://github.com/JamesHoxie">GitHub</a>. You may use any or all of my code in any other work without crediting me.
+                    </p>
                 </div>
             </div>
             <!--END MAIN-CONTENT CONTAINER-->

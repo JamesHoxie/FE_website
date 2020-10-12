@@ -4,6 +4,7 @@
 
 require('dotenv').config();
 const express = require('express');
+const favicon = require('serve-favicon');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const characterRoutes = require('./routes/characterRoutes');
@@ -22,6 +23,9 @@ app.set('view engine', 'ejs');
 
 // set public directory to serve static files from (css stylesheet and profile images in public)
 app.use(express.static(__dirname + '/public'));
+
+// set favicon
+app.use(favicon(__dirname + '/public/favicon.ico'));
 
 // json body parser
 app.use(express.json());

@@ -1,0 +1,5 @@
+<% if (user) { %>
+    <div class="current-user">Logged in as <%= user.email %></div>
+<% } else { %>
+    <div style="visibility: hidden;" class="current-user">Browsing anonymously</div>
+<% } %>

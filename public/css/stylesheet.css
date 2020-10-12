@@ -21,6 +21,42 @@ a {
     color: black;
 }
 
+/* keep normal hyperlink colors on about page */
+a.hyperlink {
+    text-decoration: underline;
+    color: blue;
+}
+
+div.font-awesome {
+    font-size: 0.5rem;
+}
+
+div.sourcelink, div.current-user {
+    background-color: rgb(218, 165, 32, 0.85); /* goldenrod */;
+    width: 25%;
+    text-align: center;
+    margin: 0px auto;
+    border: solid;
+    border-radius: 10%;
+}
+
+div.current-user {
+    margin-left: 75%;
+}
+
+footer {
+    text-align: center;
+    margin: 15% auto 2%;
+}
+
+i {
+    border-radius: 100%;
+}
+
+i:hover {
+    background-color: rgb(0, 128, 0, 0.5);
+}
+
 #page-title {
     margin-bottom: -105px;
     padding: 25px 25px 25px 25px;
@@ -117,21 +153,6 @@ nav a:hover {
 
 /* END nav bar styles */
 
-
-
-
-
-
-
-
-
-
-
-footer {
-    color: #777;
-    text-align: center;
-    margin: 80px auto 20px;
-}
 
 h2 {
     margin-bottom: 40px;

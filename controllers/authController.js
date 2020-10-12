@@ -1,6 +1,7 @@
 
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 
 // create new jwt for authenticated user
@@ -55,11 +56,37 @@ const handleErrors = function(err) {
 
 // route handling functions for export
 const signup_get = function(req, res) {
-    res.render('signup', {title: 'signup page'});
+    const token = req.cookies.jwt;
+
+    // check if json web token already exists and is authentic, indicates if user is already logged in
+    if (token) {
+        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, async (err, decodedToken) => {
+            if (err) {
+                console.log(err.message); // user not authenticated, continue to signup page
+            } else {
+                res.redirect('/') // user already logged in, redirect to homepage
+            }
+        });
+    } else {
+        res.render('signup', {title: 'signup page'});
+    }
 }
 
 const login_get = function(req, res) {
-    res.render('login', {title: 'login page'});
+    const token = req.cookies.jwt;
+
+    // check if json web token already exists and is authentic, indicates if user is already logged in
+    if (token) {
+        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, async (err, decodedToken) => {
+            if (err) {
+                console.log(err.message); // user not authenticated, continue to login page
+            } else {
+                res.redirect('/') // user already logged in, redirect to homepage
+            }
+        });
+    } else {
+        res.render('login', {title: 'login page'});
+    }
 }
 
 const signup_post = async function(req, res) {
