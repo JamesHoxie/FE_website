@@ -42,8 +42,13 @@ mongoose.set('useCreateIndex', true);
 // fix for deprecation warnings for mongoose for findOneAndUpdate, findOneAndDelete
 mongoose.set('useFindAndModify', false);
 
-// uri to connect to mongoDB
-const dbURI = process.env.MONGO_DB_CONNECTION;
+// uri to connect to mongoDB, first value should be defined if running on heroku, else use local developer connection
+const dbURI = process.env.MONGODB_URI || process.env.MONGO_DB_DEV;
+
+// // set if running on heroku, else skip this step
+// if (process.env.NODE_ENV === 'production') {
+//     app.use(express.static('client/build'));
+// }
 
 // connect to FE-Database stored on MongoDB cloud, second arg object is to ensure no deprecation warnings are displayed
 mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true})
