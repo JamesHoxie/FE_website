@@ -33,7 +33,7 @@ div.font-awesome {
 
 div.sourcelink, div.current-user {
     background-color: rgb(218, 165, 32, 0.85); /* goldenrod */;
-    width: 25%;
+    width: 15rem;
     text-align: center;
     margin: 0px auto;
     border: solid;
