@@ -15,7 +15,8 @@ const requireAuth = function(req, res, next) {
             if (err) {
                 // could not authenticate user, jwt was invalid
                 console.log(err.message);
-                res.redirect('/login');
+                res.set('Content-Type', 'text/html');
+                res.status(401).send('<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=/login"></head></html>');
             } else {
                 // user successfully authenticated
                 console.log(decodedToken);
@@ -24,7 +25,8 @@ const requireAuth = function(req, res, next) {
         });
     } else {
         // could not authenticate user, did not have jwt
-        res.redirect('/login');
+        res.set('Content-Type', 'text/html');
+        res.status(401).send('<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=/login"></head></html>');
     }
 }
 

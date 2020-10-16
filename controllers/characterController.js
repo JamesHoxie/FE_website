@@ -61,7 +61,8 @@ const character_create_post = function(req, res) {
     // save new profile to database, then redirect to characters index page
     character.save()
         .then((result) => {
-            res.status(200).redirect('/characters');
+            res.set('Content-Type', 'text/html');
+            res.status(201).send('<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=/characters"></head></html>');
         })
         .catch((err) => {
             console.log(err);
