@@ -22,7 +22,12 @@
                     </a>
                     <h2 class="name"><%= character.name %></h2>
                     <div class="profile-portrait">
-                        <img name="portrait" src="/portraits/<%= character.portrait %>">
+                        <!--Check if portrait is the default stored on disk or custom stored to aws s3-->
+                        <% if(character.portrait === 'Fire_Emblem_Logo.png') { %>
+                            <img name="portrait" src="../portraits/Fire_Emblem_Logo.png">
+                        <% } else { %>
+                            <img name="portrait" src="<%= character.portrait %>">
+                        <% } %>    
                     </div>
                     <div class="update-area">
                         <div class="update-character-profile">

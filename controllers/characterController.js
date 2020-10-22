@@ -46,15 +46,17 @@ const character_create_get = function(req, res) {
 
 // character profile creation request
 const character_create_post = function(req, res) {
-    console.log(req.file); // image file for upload as profile portrait is in req.file
+    console.log(req.body); // image file for upload as profile portrait is in req.file
     // set portrait field in req.body to field filename in req.file 
     // to store the portrait filename on the server for recall later for this profile
     
     // if req.file is undefined then no file was chosen for upload, let mongoose set the portrait field to the default in this case, 
     // otherwise set the portrait to the filename uploaded to the public/portraits directory
-    if (req.file) {
-        req.body.portrait = req.file.filename;
-    }
+    // if (req.file) {
+    //     req.body.portrait = req.file.filename;
+    // }
+    req.body.portrait = req.body['portrait-url'];
+    console.log(req.body.portrait);
      
     const character = new Character(req.body);
 
