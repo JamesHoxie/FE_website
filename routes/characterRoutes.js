@@ -5,23 +5,12 @@ const characterController = require('../controllers/characterController');
 const multer = require('multer');
 const path = require('path');
 
-const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-        cb(null, './public/portraits');
-    }, 
-
-    // ensure uploaded profile portraits will keep their file extensions when stored (jpeg, png, etc)
-    filename: function(req, file, cb) {
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-    }
-});
-
-const upload = multer({storage: storage});
+const upload = multer();
 
 // FYI: all routes here are prepended by '/characters', so get('/') in this file is actually get('/characters/') overall
 // upload.single() -> multipart form data parsing middleware
 
-router.post('/create', upload.single('portrait'), characterController.character_create_post);
+router.post('/create', upload.any(), characterController.character_create_post);
 
 router.get('/create', characterController.character_create_get);
 

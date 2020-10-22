@@ -36,6 +36,25 @@
     <%- include('../partials/footer.ejs') %>
   </div>
   <script>
+
+    // generate random id for uploaded image file name
+    function generateName(fileName) {
+      fileExtension = fileName.split('.');
+      fileExtension = fileExtension[fileExtension.length - 1];
+      fileName = fileName + new Date().toString();
+      let hash = 0;
+      let chr = '';
+
+      for (let i = 0; i < fileName.length; i++) {
+        chr   = fileName.charCodeAt(i);
+        hash  = ((hash << 5) - hash) + chr;
+        hash |= 0; // Convert to 32bit integer
+      }
+
+      return hash + '.' + fileExtension;
+    }
+
+
     /*
       Function to carry out the actual PUT request to S3 using the signed request from the app.
     */
@@ -63,8 +82,6 @@
       request.
     */
     function getSignedRequest(file){
-      file.name = encodeURIComponent(file.name);
-      console.log("fdakljfdslkajfdsklfldsjafl;kjdsalkjfdaslkjf", file.name);
       const xhr = new XMLHttpRequest();
       xhr.open('GET', `/sign-s3?file-name=${file.name}&file-type=${file.type}`);
       xhr.onreadystatechange = () => {
@@ -88,10 +105,10 @@
     function initUpload(){
       const files = document.getElementById('portrait').files;
       const file = files[0];
-      if(file == null){
-        return alert('No file selected.');
-      }
-      getSignedRequest(file);
+      if(file == null) return;
+      // change file name
+      const newFile = new File([file], generateName(file.name));
+      getSignedRequest(newFile);
     }
 
     /*

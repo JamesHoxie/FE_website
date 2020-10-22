@@ -17,7 +17,12 @@
                 <div class="featured-profile-container">
                     <div class="featured-profile-content">
                         <h3>Checkout the newest profile addition here:</h3> 
-                        <a href="/characters/<%= featuredProfile.id %>"><img name="featured-profile-portrait" src="<%= featuredProfile.portrait %>"></a> <!--make this a link to the details page of the most recent character profile to be added-->
+                        <a href="/characters/<%= featuredProfile.id %>">
+                        <% if(featuredProfile.portrait === 'Fire_Emblem_Logo.png') { %>
+                            <img name="featured-profile-portrait" src="/images/Fire_Emblem_Logo.png">
+                        <% } else { %>
+                            <img name="featured-profile-portrait" src="<%= featuredProfile.portrait %>">
+                        <% } %> 
                     </div>
                 </div>
 
