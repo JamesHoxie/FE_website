@@ -1,13 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA Compatible" content="ie=edge">
-    <title><%= title %></title>
-  </head>
+<%- include('./partials/head.ejs') %>
+<body>
+  <%- include('./partials/usergreeting.ejs') %>
+  <div class="body-container">
+      <div class="header-container">
+        <h1 id="page-title">Fire Emblem Character Profiles</h1>
+          <%- include('./partials/nav.ejs') %>
+      </div>
   
-  <body>
-      <h3 id="page-title">404 - That page does not exist</h1>
-  </body>
+      <div class="parchment-container">
+          <div class="main-content-container">
+              <h2>404 - That page does not exist</h2>
+
+              <div class="main-content">   
+                <p></p>              
+              </div>
+          </div>
+          <!--END MAIN-CONTENT CONTAINER-->
+      </div>
+      <!--END PARCHMENT CONTAINER-->
+      <%- include('./partials/footer.ejs') %>
+  </div>
+  <!--END BODY CONTAINER-->
+</body>
 </html>
+

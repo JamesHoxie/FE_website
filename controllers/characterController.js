@@ -1,7 +1,6 @@
 const Character = require('../models/character');
 const https = require('https');
 const aws = require('aws-sdk');
-const { sign } = require('crypto');
 const S3_BUCKET = process.env.S3_BUCKET_NAME;
 aws.config.region = 'us-east-1';
 
@@ -50,18 +49,7 @@ const character_create_get = function(req, res) {
 
 // character profile creation request
 const character_create_post = function(req, res) {
-    console.log(req.body); // image file for upload as profile portrait is in req.file
-    // set portrait field in req.body to field filename in req.file 
-    // to store the portrait filename on the server for recall later for this profile
-    
-    // if req.file is undefined then no file was chosen for upload, let mongoose set the portrait field to the default in this case, 
-    // otherwise set the portrait to the filename uploaded to the public/portraits directory
-    // if (req.file) {
-    //     req.body.portrait = req.file.filename;
-    // }
-    req.body.portrait = req.body['portrait-url'];
-    console.log(req.body.portrait);
-     
+    req.body.portrait = req.body['portrait-url'];  
     const character = new Character(req.body);
 
     // save new profile to database, then redirect to characters index page
@@ -82,7 +70,6 @@ const character_delete = function(req, res) {
     Character.findById(id)
         .then((result) => {
             const portraitID = result.portrait;
-            console.log(portraitID);
 
             // remove profile portrait from storage before deleting profile on mongo
             if (portraitID !== 'Fire_Emblem_Logo.png') {
@@ -90,15 +77,15 @@ const character_delete = function(req, res) {
                 // get file name from portraitID url
                 fileName = portraitID.split('/');
                 fileName = fileName[fileName.length - 1];
-                console.log("file name is: " + fileName);
                   
-                /* sign s3 delete url */
+                /* setting params for s3 delete request */
                 const s3 = new aws.S3();
                 const s3Params = {
                     Bucket: S3_BUCKET,
                     Delete: {Objects: [{Key: fileName}]},
                 };
 
+                /* delete profile portrait from s3 bucket */
                 s3.deleteObjects(s3Params, (err, data) => {
                     if(err){
                         console.log(err);
@@ -106,40 +93,9 @@ const character_delete = function(req, res) {
                         console.log(data);
                     }
                 });
-    
-                // s3.getSignedUrl('deleteObject', s3Params, (err, signedURL) => {
-                //     if(err){
-                //         console.log(err);
-                //         return res.end();
-                //     }
-
-                    // let urlParts = signedURL.split('/');
-                    // let hostname = urlParts[2];
-                    // let path = urlParts[3].split('?')[0];
-                    // console.log(urlParts);
-                    // /* send delete request for portrait to s3*/
-                    // let options = {hostname: hostname, path: path, method: 'DELETE'};
-                    // console.log(hostname);
-                    // console.log(path);
-                    // // https.request(options, (resp) => {
-                    // //     let data = '';
-
-                    // //     resp.on('data', (chunk) => {
-                    // //         data += chunk;
-                    // //     });
-
-                    // //     // The whole response has been received. Print out the result.
-                    // //     resp.on('end', () => {
-                    // //         console.log("S3 reply: " + resp.statusCode + ", " + data);
-                    // //     });
-
-                    // //     }).on("error", (err) => {
-                    // //         console.log('Could not delete file.');
-                    // //         console.log("Error: " + err.message);
-                    // // }).end();
-                // });
             }
 
+            /* remove profile from mongodb */
             Character.findByIdAndDelete(id)
                 .then((result) => {
                     // redirect to characters index page after successful profile deletion
@@ -158,7 +114,6 @@ const character_delete = function(req, res) {
 const character_put = function(req, res) {
     const id = req.params.id;
     const data = req.body;
-    console.log(req.body);
 
     Character.findByIdAndUpdate(id, data)
         .then((result) => {

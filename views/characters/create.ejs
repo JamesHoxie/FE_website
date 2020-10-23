@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-  <%- include('../partials/charactershead.ejs') %>
+  <%- include('../partials/head.ejs') %>
   
 <body>
   <%- include('../partials/usergreeting.ejs') %>
+  <!--BEGIN body-container-->
   <div class="body-container">
     <div class="header-container">
       <h1 id="page-title">Fire Emblem Character Profiles</h1>
@@ -35,11 +36,12 @@
     <!--END PARCHMENT CONTAINER-->
     <%- include('../partials/footer.ejs') %>
   </div>
+  <!--END body-container-->
   <script>
-
+    "use strict";
     // generate random id for uploaded image file name
     function generateName(fileName) {
-      fileExtension = fileName.split('.');
+      let fileExtension = fileName.split('.');
       fileExtension = fileExtension[fileExtension.length - 1];
       fileName = fileName + new Date().toString();
       let hash = 0;
@@ -55,40 +57,56 @@
     }
 
 
-    /*
-      Function to carry out the actual PUT request to S3 using the signed request from the app.
-    */
-    function uploadFile(file, signedRequest, url){
-      const xhr = new XMLHttpRequest();
-      xhr.open('PUT', signedRequest);
-      xhr.onreadystatechange = () => {
-        if(xhr.readyState === 4){
-          if(xhr.status === 200){
-            // document.getElementById('preview').src = url;
-            document.getElementById('portrait-url').value = url;
-            alert('success?');
+    /* Function to carry out the actual PUT request to S3 using the signed request from the app. */
+    function uploadFile(fileUpload, signedS3Request, respURL) {
+        const xhr = new XMLHttpRequest();
+        xhr.open('PUT', signedS3Request);
+        xhr.onreadystatechange = () => {
+          if(xhr.readyState === 4){
+            if(xhr.status === 200){
+              console.log('uploaded file');
+            }
+            else{
+              console.log('could not upload file');
+            }
           }
-          else{
-            alert('Could not upload file.');
-          }
-        }
-      };
-      xhr.send(file);
+        };
+        xhr.send(fileUpload);
     }
 
-    /*
-      Function to get the temporary signed request from the app.
+    /* Function to get the temporary signed request from the app.
       If request successful, continue to upload the file using this signed
-      request.
-    */
-    function getSignedRequest(file){
+      request. */
+    function getSignedRequest(file) {
       const xhr = new XMLHttpRequest();
       xhr.open('GET', `/sign-s3?file-name=${file.name}&file-type=${file.type}`);
       xhr.onreadystatechange = () => {
         if(xhr.readyState === 4){
           if(xhr.status === 200){
             const response = JSON.parse(xhr.responseText);
+            // enable submit button now that image is ready for upload to s3
+            document.querySelector('button').disabled = false;
+            
+            
+          
+          
+            alert('got signed url');
+          
+            document.getElementById('portrait-url').value = response.url;
+            //
+            // remove from here, setting as an on submit event handler function
             uploadFile(file, response.signedRequest, response.url);
+            //
+            //
+          
+          
+          
+          
+          
+          
+          
+          
+          
           }
           else{
             alert('Could not get signed URL.');
@@ -98,26 +116,30 @@
       xhr.send();
     }
 
-    /*
-     Function called when file input updated. If there is a file selected, then
-     start upload procedure by asking for a signed request from the app.
-    */
-    function initUpload(){
+    /* Function called when file input updated. If there is a file selected, then
+      start upload procedure by asking for a signed request from the app. */
+    function initUpload() {
+      // disable submit button until image is ready for upload to s3
+      document.querySelector('button').disabled = true;
       const files = document.getElementById('portrait').files;
       const file = files[0];
-      if(file == null) return;
+      if(file == null) {
+        // set file upload back to default portrait if cancel is selected on file upload button
+        document.getElementById('portrait-url').value = "Fire_Emblem_Logo.png";
+        // enable submit button now that no image was selected for upload to s3
+        document.querySelector('button').disabled = false;
+
+        return;
+      }
       // change file name
       const newFile = new File([file], generateName(file.name));
       getSignedRequest(newFile);
-    }
-
-    /*
-     Bind listeners when the page loads.
-    */
+    } 
+  
+    /* Bind listeners when the page loads. */
     (() => {
         document.getElementById('portrait').onchange = initUpload;
     })();
-
   </script>
 </body>
 </html>

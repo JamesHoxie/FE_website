@@ -16,11 +16,15 @@
 
                 <div class="main-content">
                     <p>
-                        This website implements standard Create, Read, Update, and Delete (CRUD) operations on a remote MongoDB server. 
-                        The website uses NodeJS as a backend with the Express library to handle http requests and responses and the ejs templating engine to render dynamic html pages.
+                        This website implements standard Create, Read, Update, and Delete (CRUD) operations on a remote MongoDB Atlas server and
+                        Amazon Web Services Simple Storage System (AWS S3) database server. 
+                        The website uses NodeJS as a backend with the Express library to handle http requests, responses, and routing. 
+                        The ejs templating engine is used to render html pages on the server before sending to the client.
                         The Mongoose library is used to store profiles, user accounts, and interface with MongoDB. 
-                        The bcrypt library is used to hash and salt user profile passwords before storing them in MongoDB.
+                        The bcrypt library is used to hash and salt user account passwords before storing them in MongoDB.
                         User authentication is accomplished through the use of JSON web tokens with the jsonwebtoken and cookieparser libraries.
+                        Since the site is hosted on heroku, which does not allow for persistent storage of files locally for the server, profile image files
+                        are stored on AWS S3.
                         Other dependencies can be viewed in the package.json file in the source code on my <a class="hyperlink" href="https://github.com/JamesHoxie">GitHub</a>
                     </p>
                     <br>

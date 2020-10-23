@@ -15,11 +15,10 @@ const cookieParser = require('cookie-parser');
 const requireAuth = require('./authChecker.js').requireAuth;
 const checkUser = require('./authChecker.js').checkUser;
 const PORT = process.env.PORT || 3000;
-
 const S3_BUCKET = process.env.S3_BUCKET_NAME;
 aws.config.region = 'us-east-1';
 
-// express app, instance of express app
+// init express app
 const app = express();
 
 // register view engine
@@ -49,17 +48,10 @@ mongoose.set('useFindAndModify', false);
 // uri to connect to mongoDB, first value should be defined if running on heroku, else use local developer connection
 const dbURI = process.env.MONGODB_URI || process.env.MONGO_DB_DEV;
 
-// // set if running on heroku, else skip this step
-// if (process.env.NODE_ENV === 'production') {
-//     app.use(express.static('client/build'));
-// }
-
 // connect to FE-Database stored on MongoDB cloud, second arg object is to ensure no deprecation warnings are displayed
 mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true})
     .then((result) => {
         console.log('Connected to FE-Database');
-        
-        // listen for requests on localhost port 3000 now that database was connected to successfully 
         app.listen(PORT);
     })
     .catch((err) => {
