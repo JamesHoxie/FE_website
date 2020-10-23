@@ -39,6 +39,11 @@
   <!--END body-container-->
   <script>
     "use strict";
+    // params for image upload
+    let imageFile = null;
+    let signedRequestS3 = null;
+    let responseURL = null;
+
     // generate random id for uploaded image file name
     function generateName(fileName) {
       let fileExtension = fileName.split('.');
@@ -54,6 +59,18 @@
       }
 
       return hash + '.' + fileExtension;
+    }
+
+    // named handler function for submit button on click, removed later if image upload is cancelled in form by user
+    async function submitHandler(e) {
+      e.preventDefault();
+      try {
+        await uploadFile(imageFile, signedRequestS3, responseURL);
+        
+      } catch(error) {
+        console.log(error);
+      }
+      document.querySelector('form').submit();
     }
     
     /* Function to carry out the actual PUT request to S3 using the signed request from the app. */
@@ -93,21 +110,16 @@
             // set portrait url for storage in mongodb
             document.getElementById('portrait-url').value = response.url;
 
-            // attach event handler to form to prevent form from submitting until the image is uploaded
+            // set params for upload for handler
+            imageFile = file;
+            signedRequestS3 = response.signedRequest;
+            responseURL = response.url;
+            // attach event handler to submit button to prevent form from submitting until the image is uploaded
             // to s3 successfully. click on form triggers submit event, but first triggers click event,
             // default on click event is to send submit event, so by preventing the default there is time
             // to send the request for image upload to s3, then manually trigger a submit event 
             // (not click event to avoid infinite loop)
-            document.querySelector('form').addEventListener('click', async (e) => {
-              e.preventDefault();
-              try {
-                await uploadFile(file, response.signedRequest, response.url);
-                
-              } catch(error) {
-                console.log(error);
-              }
-              document.querySelector('form').submit();
-            });
+            document.querySelector('form button').addEventListener('click', submitHandler);
           }
           else{
             console.log('Could not get signed URL.');
@@ -127,6 +139,8 @@
       if(file == null) {
         // set file upload back to default portrait if cancel is selected on file upload button
         document.getElementById('portrait-url').value = "Fire_Emblem_Logo.png";
+        // remove click event handler from submit button since file is not longer selected for upload
+        document.querySelector('form button').removeEventListener('click', submitHandler);
         // enable submit button now that no image was selected for upload to s3
         document.querySelector('button').disabled = false;
 
