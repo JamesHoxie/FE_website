@@ -1,5 +1,9 @@
 const Character = require('../models/character');
-const fs = require('fs');
+const https = require('https');
+const aws = require('aws-sdk');
+const { sign } = require('crypto');
+const S3_BUCKET = process.env.S3_BUCKET_NAME;
+aws.config.region = 'us-east-1';
 
 // list of characters profiles page
 const character_index = function(req, res) {
@@ -82,14 +86,58 @@ const character_delete = function(req, res) {
 
             // remove profile portrait from storage before deleting profile on mongo
             if (portraitID !== 'Fire_Emblem_Logo.png') {
-                // only remove profile portrait from storage if it is not the default portrait
-                fs.unlink(`./public/portraits/${portraitID}`, (err) => {
-                    if (err) {
+                // only remove profile portrait from aws s3 if it is not the default portrait
+                // get file name from portraitID url
+                fileName = portraitID.split('/');
+                fileName = fileName[fileName.length - 1];
+                console.log("file name is: " + fileName);
+                  
+                /* sign s3 delete url */
+                const s3 = new aws.S3();
+                const s3Params = {
+                    Bucket: S3_BUCKET,
+                    Delete: {Objects: [{Key: fileName}]},
+                };
+
+                s3.deleteObjects(s3Params, (err, data) => {
+                    if(err){
                         console.log(err);
                     } else {
-                        console.log(`${portraitID} was deleted`);
+                        console.log(data);
                     }
-                  });
+                });
+    
+                // s3.getSignedUrl('deleteObject', s3Params, (err, signedURL) => {
+                //     if(err){
+                //         console.log(err);
+                //         return res.end();
+                //     }
+
+                    // let urlParts = signedURL.split('/');
+                    // let hostname = urlParts[2];
+                    // let path = urlParts[3].split('?')[0];
+                    // console.log(urlParts);
+                    // /* send delete request for portrait to s3*/
+                    // let options = {hostname: hostname, path: path, method: 'DELETE'};
+                    // console.log(hostname);
+                    // console.log(path);
+                    // // https.request(options, (resp) => {
+                    // //     let data = '';
+
+                    // //     resp.on('data', (chunk) => {
+                    // //         data += chunk;
+                    // //     });
+
+                    // //     // The whole response has been received. Print out the result.
+                    // //     resp.on('end', () => {
+                    // //         console.log("S3 reply: " + resp.statusCode + ", " + data);
+                    // //     });
+
+                    // //     }).on("error", (err) => {
+                    // //         console.log('Could not delete file.');
+                    // //         console.log("Error: " + err.message);
+                    // // }).end();
+                // });
             }
 
             Character.findByIdAndDelete(id)
