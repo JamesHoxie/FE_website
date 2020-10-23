@@ -77,6 +77,7 @@ const character_delete = function(req, res) {
                 // get file name from portraitID url
                 fileName = portraitID.split('/');
                 fileName = fileName[fileName.length - 1];
+                console.log("file name is: " + fileName);
                   
                 /* setting params for s3 delete request */
                 const s3 = new aws.S3();
@@ -114,6 +115,7 @@ const character_delete = function(req, res) {
 const character_put = function(req, res) {
     const id = req.params.id;
     const data = req.body;
+    console.log(req.body);
 
     Character.findByIdAndUpdate(id, data)
         .then((result) => {

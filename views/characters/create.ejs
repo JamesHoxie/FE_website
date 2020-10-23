@@ -55,28 +55,31 @@
 
       return hash + '.' + fileExtension;
     }
-
-
+    
     /* Function to carry out the actual PUT request to S3 using the signed request from the app. */
     function uploadFile(fileUpload, signedS3Request, respURL) {
+      return new Promise((resolve, reject) => {
+        document.getElementById('portrait-url').value = respURL;
         const xhr = new XMLHttpRequest();
         xhr.open('PUT', signedS3Request);
         xhr.onreadystatechange = () => {
           if(xhr.readyState === 4){
             if(xhr.status === 200){
               console.log('uploaded file');
+              resolve('success');
             }
             else{
               console.log('could not upload file');
+              reject('error');
             }
           }
         };
         xhr.send(fileUpload);
+      });
     }
 
     /* Function to get the temporary signed request from the app.
-      If request successful, continue to upload the file using this signed
-      request. */
+      If request successful, set up event listener on form to upload the image upon form submission */
     function getSignedRequest(file) {
       const xhr = new XMLHttpRequest();
       xhr.open('GET', `/sign-s3?file-name=${file.name}&file-type=${file.type}`);
@@ -87,29 +90,27 @@
             // enable submit button now that image is ready for upload to s3
             document.querySelector('button').disabled = false;
             
-            
-          
-          
-            alert('got signed url');
-          
+            // set portrait url for storage in mongodb
             document.getElementById('portrait-url').value = response.url;
-            //
-            // remove from here, setting as an on submit event handler function
-            uploadFile(file, response.signedRequest, response.url);
-            //
-            //
-          
-          
-          
-          
-          
-          
-          
-          
-          
+
+            // attach event handler to form to prevent form from submitting until the image is uploaded
+            // to s3 successfully. click on form triggers submit event, but first triggers click event,
+            // default on click event is to send submit event, so by preventing the default there is time
+            // to send the request for image upload to s3, then manually trigger a submit event 
+            // (not click event to avoid infinite loop)
+            document.querySelector('form').addEventListener('click', async (e) => {
+              e.preventDefault();
+              try {
+                await uploadFile(file, response.signedRequest, response.url);
+                
+              } catch(error) {
+                console.log(error);
+              }
+              document.querySelector('form').submit();
+            });
           }
           else{
-            alert('Could not get signed URL.');
+            console.log('Could not get signed URL.');
           }
         }
       };

@@ -10,7 +10,7 @@ const upload = multer();
 // FYI: all routes here are prepended by '/characters', so get('/') in this file is actually get('/characters/') overall
 // upload.any() -> multipart form data parsing middleware
 
-router.post('/create', upload.any(), characterController.character_create_post);
+router.post('/create', upload.single('portrait'), characterController.character_create_post);
 
 router.get('/create', characterController.character_create_get);
 
