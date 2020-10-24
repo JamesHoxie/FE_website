@@ -99,6 +99,7 @@
       If request successful, set up event listener on form to upload the image upon form submission */
     function getSignedRequest(file) {
       const xhr = new XMLHttpRequest();
+      xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
       xhr.open('GET', `/sign-s3?file-name=${file.name}&file-type=${file.type}`);
       xhr.onreadystatechange = () => {
         if(xhr.readyState === 4){
@@ -147,7 +148,10 @@
         return;
       }
       // change file name
-      const newFile = new File([file], generateName(file.name));
+      let fileExtension = file.name.split('.');
+      fileExtension = fileExtension[fileExtension.length - 1];
+      console.log(fileExtension);
+      const newFile = new File([file], generateName(file.name), {type: "image/" + fileExtension});
       getSignedRequest(newFile);
     } 
   
