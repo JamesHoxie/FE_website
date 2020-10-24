@@ -104,6 +104,8 @@
       xhr.onreadystatechange = () => {
         if(xhr.readyState === 4){
           if(xhr.status === 200){
+            console.log(typeof xhr.responseText);
+            console.log(xhr.responseText);
             const response = JSON.parse(xhr.responseText);
             // enable submit button now that image is ready for upload to s3
             document.querySelector('button').disabled = false;
